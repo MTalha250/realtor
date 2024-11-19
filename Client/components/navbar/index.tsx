@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(-1);
   return (
-    <div className="fixed z-50 bg-background w-full">
+    <div className="fixed z-50 bg-background w-full shadow-lg">
       <div className="flex justify-between items-center py-4 container">
         <img src={logo.src} alt="Logo" className="w-32" />
         <div className="flex items-center gap-5">

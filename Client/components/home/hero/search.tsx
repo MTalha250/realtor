@@ -14,7 +14,7 @@ const SearchCard = () => {
   const [priceRange, setPriceRange] = useState("50-100");
   const [filter, setFilter] = useState("sale");
   return (
-    <div className="bg-white p-10 flex justify-between items-center w-[90%]">
+    <div className="bg-white p-10 flex justify-between items-center w-[90%] shadow-lg">
       <div className="flex gap-20 items-center">
         <label>
           <Select onValueChange={(e) => setPropertyType(e)}>
