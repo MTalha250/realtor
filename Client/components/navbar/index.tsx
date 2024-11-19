@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
 import { Button } from "../ui/button";
 import { navLinks } from "@/constants";
@@ -8,8 +8,28 @@ import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(-1);
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > window.innerHeight - 100) {
+        setScroll(true);
+      } else {
+        setScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="fixed z-50 bg-background w-full shadow-lg">
+    <div
+      className={
+        "fixed z-50 w-full shadow-lg " +
+        (scroll ? "bg-[#f1f1f1]" : "bg-background")
+      }
+    >
       <div className="flex justify-between items-center py-4 container">
         <img src={logo.src} alt="Logo" className="w-32" />
         <div className="flex items-center gap-5">

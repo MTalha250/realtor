@@ -22,7 +22,7 @@ const CardOne = ({ product }: Props) => {
         </p>
         <Link
           href={`/properties/${product.id}`}
-          className="bg-primary text-white p-2 rounded-md text-sm"
+          className="bg-primary text-white p-2 rounded-md text-sm hover:bg-primary3 transition duration-300"
         >
           View More{" "}
         </Link>

@@ -7,7 +7,7 @@ interface Props {
 
 const BlogCard = ({ blog }: Props) => {
   return (
-    <div>
+    <div className="hover:scale-105 transition duration-300">
       <img
         src={blog.titleImage}
         alt="blog"

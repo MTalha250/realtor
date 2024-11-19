@@ -62,7 +62,45 @@ const About = () => {
         </ResizablePanelGroup>
       </div>
       <div>
-        <h1 className="text-center font-slab text-4xl">Why Choose Us</h1>
+        <h1 className="text-center font-slab text-4xl mb-10">Why Choose Us</h1>
+        <div className="flex justify-between gap-10">
+          <div>
+            <img
+              src={img.src}
+              alt=""
+              className="rounded-2xl h-60 w-full object-cover mb-4"
+            />
+            <h1 className="text-2xl font-bold mb-2">Trusted Experience</h1>
+            <p className="w-[90%]">
+              We have years of experience in the property industry and have
+              helped thousand of clients find their dream home
+            </p>
+          </div>
+          <div>
+            <img
+              src={img.src}
+              alt=""
+              className="rounded-2xl h-60 w-full object-cover mb-4"
+            />
+            <h1 className="text-2xl font-bold mb-2">Best Quality</h1>
+            <p className="w-[90%]">
+              Every property in our portfolio goes through a rigorous selection
+              to ensure quality and customer satisfaction
+            </p>
+          </div>
+          <div>
+            <img
+              src={img.src}
+              alt=""
+              className="rounded-2xl h-60 w-full object-cover mb-4"
+            />
+            <h1 className="text-2xl font-bold mb-2">Personal Service</h1>
+            <p className="w-[90%]">
+              Our team is ready to provide personal service and support you from
+              start to finish of the process of buying or renting a property
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

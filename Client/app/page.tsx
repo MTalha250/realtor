@@ -1,7 +1,10 @@
 import About from "@/components/home/about";
+import Banner from "@/components/home/banner";
 import Blogs from "@/components/home/blogs";
+import CallToAction from "@/components/home/callToAction";
 import Hero from "@/components/home/hero";
 import MostViewed from "@/components/home/mostViewed";
+import Testimonials from "@/components/home/testimonials";
 import React from "react";
 
 const page = () => {
@@ -11,6 +14,9 @@ const page = () => {
       <MostViewed />
       <Blogs />
       <About />
+      <Testimonials />
+      <Banner />
+      <CallToAction />
     </div>
   );
 };
