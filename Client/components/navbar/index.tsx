@@ -31,7 +31,13 @@ const Navbar = () => {
       }
     >
       <div className="flex justify-between items-center py-4 container">
-        <img src={logo.src} alt="Logo" className="w-32" />
+        <Link href="/">
+          <img
+            src={logo.src}
+            alt="Logo"
+            className="w-32 hover:scale-105 transition duration-300"
+          />
+        </Link>
         <div className="flex items-center gap-5">
           <ul className="font-slab flex divide-x divide-secondary text-primary text-lg">
             {navLinks.map((link, index) => (
