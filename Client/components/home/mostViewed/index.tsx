@@ -117,7 +117,7 @@ const MostViewed = () => {
             </Button>
           </div>
           <Link
-            href="/properties"
+            href="/properties/all"
             className="text-lg h-16 rounded-xl px-8 bg-primary text-white flex items-center justify-center hover:bg-primary3 transition duration-300"
           >
             All Properties

@@ -16,8 +16,8 @@ const CardTwo = ({ product }: Props) => {
           <div className="flex justify-between">
             <h1 className="font-bold mb-2 w-2/3">{product.title}</h1>
             <span className="font-bold text-secondary">
-              {product.dealType
-                ? product.dealType[0].toUpperCase() + product.dealType.slice(1)
+              {product.category
+                ? product.category[0].toUpperCase() + product.category.slice(1)
                 : ""}
             </span>
           </div>

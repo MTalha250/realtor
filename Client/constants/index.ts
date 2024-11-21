@@ -5,21 +5,21 @@ export const navLinks = [
   },
   {
     title: "Sales",
-    url: "/properties?category=sales",
+    url: "/properties?category=sale",
     children: [
       {
         title: "Used Homes",
-        url: "/properties?category=sales&dealType=used",
+        url: "/properties?category=sale&dealType=used",
       },
       {
         title: "New Developments",
-        url: "/properties?category=sales&dealType=new",
+        url: "/properties?category=sale&dealType=new",
       },
     ],
   },
   {
     title: "Rentals",
-    url: "/properties?category=rentals",
+    url: "/properties?category=rental",
   },
   {
     title: "Sell or Rent",

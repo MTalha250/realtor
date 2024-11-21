@@ -1,13 +1,19 @@
 "use client";
-import Hero from "@/components/common/hero";
 import React, { useState } from "react";
-import img1 from "@/assets/hero.jpg";
 import img from "@/assets/product.jpg";
-import SearchCard from "@/components/home/hero/search";
-import GridTwo from "@/components/grids/gridTwo";
+import img1 from "@/assets/hero.jpg";
+import Hero from "@/components/common/hero";
+import { useSearchParams } from "next/navigation";
+import SearchCard from "@/components/common/searchCard";
+import GridThree from "@/components/grids/gridThree";
+import { LayoutGrid, Rows3 } from "lucide-react";
+import GridFour from "@/components/grids/gridFour";
 
 const Properties = () => {
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
   const [loading, setLoading] = useState(false);
+  const [view, setView] = useState("grid");
   const [properties, setProperties] = useState<Partial<Product>[]>([
     {
       id: 1,
@@ -15,7 +21,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "sale",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "month",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 2,
@@ -23,7 +38,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "rent",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "night",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 3,
@@ -31,7 +55,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "sale",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "month",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 4,
@@ -39,7 +72,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "rent",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "night",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 5,
@@ -47,7 +89,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "sale",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "month",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 6,
@@ -55,7 +106,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "rent",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "night",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 7,
@@ -63,7 +123,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "sale",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "month",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 8,
@@ -71,7 +140,16 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "rent",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "night",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
     {
       id: 9,
@@ -79,17 +157,45 @@ const Properties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      dealType: "rent",
+      bedrooms: 3,
+      bathrooms: 2,
+      price: 200000,
+      priceType: "month",
+      area: 2000,
+      location: {
+        latitude: 33.748997,
+        longitude: -84.387985,
+        region: "Georgia",
+      },
     },
   ]);
   return (
     <div>
-      <Hero title="Properties" img={img1.src} />
+      <Hero
+        img={img1.src}
+        title={
+          category === "sale" ? "Properties For Sale" : "Properties For Rent"
+        }
+      />
       <div className="container flex justify-center py-10">
         <SearchCard />
       </div>
       <div className="container">
-        <GridTwo products={properties} loading={loading} />
+        <div className="w-full relative h-5">
+          <div className="flex gap-3 absolute right-0">
+            <button onClick={() => setView("grid")}>
+              <LayoutGrid size={30} className="text-primary" />
+            </button>
+            <button onClick={() => setView("list")}>
+              <Rows3 size={30} className="text-primary" />
+            </button>
+          </div>
+        </div>
+        {view === "grid" ? (
+          <GridFour products={properties} loading={loading} />
+        ) : (
+          <GridThree products={properties} loading={loading} />
+        )}
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ type Product = {
   bathrooms: number;
   area: number;
   propertyType: string;
+  category: string;
   dealType: string;
   price: number;
   priceType: string;

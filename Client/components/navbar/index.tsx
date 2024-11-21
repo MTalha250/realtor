@@ -64,7 +64,7 @@ const Navbar = () => {
                       {link.children.map((subLink, index) => (
                         <Link
                           key={index}
-                          href={`/products/${subLink.url}`}
+                          href={subLink.url}
                           className="text-gray-600 hover:bg-secondary2/20 transition-colors duration-300 p-2"
                         >
                           {subLink.title}
