@@ -2,14 +2,16 @@
 import React, { useState } from "react";
 import img from "@/assets/hero.jpg";
 import Slider from "@/components/propertyDetails/slider";
+import { Heart, Forward } from "lucide-react";
+import Main from "@/components/propertyDetails/main";
 
 const page = () => {
   const [property, setProperty] = useState<Property>({
     id: 1,
     images: [img.src, img.src, img.src, img.src, img.src],
-    title: "Georgia Town Park",
+    title: "11 Bedroom Equestrian For Sale In Cockermouth",
     description:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+      "The description was automatically translated. Show original A journey through time Entire Hall's historic roots run deep, with its main tower dating back to 1290. The south wing, built around 1590, adds to the charm, while the main building, completed in 1863, is a testament to Victorian architectural grandeur. The property's premises licence adds to its versatility, making it an ideal venue for business and leisure travellers alike.",
     bedrooms: 3,
     bathrooms: 2,
     price: 200000,
@@ -30,6 +32,17 @@ const page = () => {
   return (
     <div className="py-32 container">
       <Slider photos={property.images} />
+      <div className="flex gap-5 my-5">
+        <div className="flex gap-2 items-center">
+          <Heart color="#ff2600" fill="#FF0000" size={24} />
+          <span className="text-xl font-slab">Like</span>
+        </div>
+        <div className="flex gap-2 items-center">
+          <Forward size={24} strokeWidth={3} />
+          <span className="text-xl font-slab">Share</span>
+        </div>
+      </div>
+      <Main property={property} />
     </div>
   );
 };
