@@ -1,3 +1,6 @@
+import img from "@/assets/p1.jpg";
+import img2 from "@/assets/p2.jpg";
+import img3 from "@/assets/p3.jpg";
 export const navLinks = [
   {
     title: "Home",
@@ -39,5 +42,33 @@ export const navLinks = [
         url: "/blog",
       },
     ],
+  },
+];
+
+export const team = [
+  {
+    img: img.src,
+    name: "John Doe",
+    whatsapp: "https://wa.me/1234567890",
+  },
+  {
+    img: img2.src,
+    name: "Jane Doe",
+    whatsapp: "https://wa.me/1234567890",
+  },
+  {
+    img: img3.src,
+    name: "John Doe",
+    whatsapp: "https://wa.me/1234567890",
+  },
+  {
+    img: img2.src,
+    name: "Jane Doe",
+    whatsapp: "https://wa.me/1234567890",
+  },
+  {
+    img: img.src,
+    name: "John Doe",
+    whatsapp: "https://wa.me/1234567890",
   },
 ];

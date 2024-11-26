@@ -4,6 +4,11 @@ import img from "@/assets/hero.jpg";
 import Slider from "@/components/propertyDetails/slider";
 import { Heart, Forward } from "lucide-react";
 import Main from "@/components/propertyDetails/main";
+import Video from "@/components/propertyDetails/video";
+import Map from "@/components/propertyDetails/map";
+import Characteristics from "@/components/propertyDetails/characteristics";
+import About from "@/components/propertyDetails/about";
+import Similar from "@/components/propertyDetails/similar";
 
 const page = () => {
   const [property, setProperty] = useState<Property>({
@@ -25,6 +30,11 @@ const page = () => {
     propertyType: "House",
     category: "Residential",
     dealType: "Sale",
+    views: 100,
+    likes: 50,
+    video:
+      "https://res.cloudinary.com/dewqsghdi/video/upload/v1732637542/A_short_placeholder_video_ysw7yh.mp4",
+    characteristics: ["Gym", "Swimming Pool", "Garage", "Fireplace"],
     createdAt: "2021-07-01T00:00:00.000Z",
     updatedAt: "2021-07-01T00:00:00.000Z",
   });
@@ -43,6 +53,11 @@ const page = () => {
         </div>
       </div>
       <Main property={property} />
+      <Video photos={property.images} video={property.video} />
+      <Map />
+      <Characteristics characteristics={property.characteristics} />
+      {/* <About property={property} /> */}
+      <Similar />
     </div>
   );
 };

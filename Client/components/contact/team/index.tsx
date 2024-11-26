@@ -1,5 +1,5 @@
 import React from "react";
-import img from "@/assets/p1.jpg";
+import { team } from "@/constants";
 
 const Team = () => {
   return (
@@ -8,61 +8,19 @@ const Team = () => {
         Meet Our Team
       </h1>
       <div className="flex justify-center gap-20">
-        <div className="flex flex-col items-center">
-          <img
-            src={img.src}
-            alt=""
-            className="rounded-full h-44 w-44 object-cover mb-4"
-          />
-          <p className="text-center font-bold mb-2 text-lg">Name</p>
-          <a href="#" className="text-center">
-            Contact on <br /> Whatsapp
-          </a>
-        </div>
-        <div className="flex flex-col items-center">
-          <img
-            src={img.src}
-            alt=""
-            className="rounded-full h-44 w-44 object-cover mb-4"
-          />
-          <p className="text-center font-bold mb-2 text-lg">Name</p>
-          <a href="#" className="text-center">
-            Contact on <br /> Whatsapp
-          </a>
-        </div>
-        <div className="flex flex-col items-center">
-          <img
-            src={img.src}
-            alt=""
-            className="rounded-full h-44 w-44 object-cover mb-4"
-          />
-          <p className="text-center font-bold mb-2 text-lg">Name</p>
-          <a href="#" className="text-center">
-            Contact on <br /> Whatsapp
-          </a>
-        </div>
-        <div className="flex flex-col items-center">
-          <img
-            src={img.src}
-            alt=""
-            className="rounded-full h-44 w-44 object-cover mb-4"
-          />
-          <p className="text-center font-bold mb-2 text-lg">Name</p>
-          <a href="#" className="text-center">
-            Contact on <br /> Whatsapp
-          </a>
-        </div>
-        <div className="flex flex-col items-center">
-          <img
-            src={img.src}
-            alt=""
-            className="rounded-full h-44 w-44 object-cover mb-4"
-          />
-          <p className="text-center font-bold mb-2 text-lg">Name</p>
-          <a href="#" className="text-center">
-            Contact on <br /> Whatsapp
-          </a>
-        </div>
+        {team.map((item, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <img
+              src={item.img}
+              alt={item.name}
+              className="rounded-full h-44 w-44 object-cover mb-4"
+            />
+            <p className="text-center font-bold mb-2 text-lg">{item.name}</p>
+            <a href={item.whatsapp} target="_blank" className="text-center">
+              Contact on <br /> Whatsapp
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );

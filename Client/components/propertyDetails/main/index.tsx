@@ -12,14 +12,27 @@ interface Props {
 
 const Main = ({ property }: Props) => {
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 py-10">
       <div className="w-2/3">
         <h1 className="text-5xl font-slab font-light mb-5">{property.title}</h1>
         <p className="mb-5 text-xl font-light">
           {property.bedrooms} bedrooms . {property.bathrooms} bathrooms .{" "}
           {property.area} sqft
         </p>
-        <p>{property.description}</p>
+        <p className="mb-5">{property.description}</p>
+        <p className="mb-5 text-xl font-light">
+          Last Updated:{" "}
+          {new Date(property.updatedAt).toLocaleDateString() ===
+          new Date().toLocaleDateString()
+            ? "Today"
+            : new Date(property.updatedAt).toLocaleDateString() ===
+              new Date(
+                new Date().setDate(new Date().getDate() - 1)
+              ).toLocaleDateString()
+            ? "Yesterday"
+            : new Date(property.updatedAt).toLocaleDateString()}{" "}
+          . Views {property.views} . Likes {property.likes}
+        </p>
       </div>
       <div className="w-1/3 border border-black p-10">
         <div className="flex gap-5 mb-4">

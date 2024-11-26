@@ -14,8 +14,12 @@ type Property = {
   propertyType: string;
   category: string;
   dealType: string;
+  video: string;
   price: number;
   priceType: string;
+  views: number;
+  likes: number;
+  characteristics: string[];
   createdAt: string;
   updatedAt: string;
 };

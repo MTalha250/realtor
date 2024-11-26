@@ -11,16 +11,28 @@ const SocialIcons = () => {
         Follow us on Social Media
       </h1>
       <div className="flex justify-center gap-20">
-        <a href="https://wa.me/1234567890">
+        <a
+          href="https://wa.me/1234567890"
+          className="hover:scale-105 transition duration-300"
+        >
           <img src={whatsapp.src} alt="whatsapp" className="w-14 h-14" />
         </a>
-        <a href="https://facebook.com">
+        <a
+          href="https://facebook.com"
+          className="hover:scale-105 transition duration-300"
+        >
           <img src={facebook.src} alt="facebook" className="w-14 h-14" />
         </a>
-        <a href="https://instagram.com">
+        <a
+          href="https://instagram.com"
+          className="hover:scale-105 transition duration-300"
+        >
           <img src={instagram.src} alt="instagram" className="w-14 h-14" />
         </a>
-        <a href="https://twitter.com">
+        <a
+          href="https://twitter.com"
+          className="hover:scale-105 transition duration-300"
+        >
           <img src={tiktok.src} alt="twitter" className="w-14 h-14" />
         </a>
       </div>
