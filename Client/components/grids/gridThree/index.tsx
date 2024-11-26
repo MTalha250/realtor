@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import CardThree from "@/components/cards/cartThree";
 
 interface Props {
-  products: Partial<Product>[];
+  products: Partial<Property>[];
   loading: boolean;
 }
 

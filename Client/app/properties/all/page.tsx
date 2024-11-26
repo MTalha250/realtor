@@ -8,7 +8,7 @@ import GridTwo from "@/components/grids/gridTwo";
 
 const AllProperties = () => {
   const [loading, setLoading] = useState(false);
-  const [properties, setProperties] = useState<Partial<Product>[]>([
+  const [properties, setProperties] = useState<Partial<Property>[]>([
     {
       id: 1,
       images: [img.src],

@@ -8,7 +8,7 @@ import img from "@/assets/product.jpg";
 const MostViewed = () => {
   const [selected, setSelected] = useState("new-developments");
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState<Partial<Product>[]>([
+  const [properties, setProperties] = useState<Partial<Property>[]>([
     {
       id: 1,
       images: [img.src],
@@ -123,7 +123,7 @@ const MostViewed = () => {
             All Properties
           </Link>
         </div>
-        <GridOne loading={loading} products={products} />
+        <GridOne loading={loading} products={properties} />
       </div>
     </div>
   );

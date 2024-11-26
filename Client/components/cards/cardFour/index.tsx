@@ -2,7 +2,7 @@ import React from "react";
 import { MapPin, Bed, Bath, LandPlot, Heart } from "lucide-react";
 
 interface Props {
-  product: Partial<Product>;
+  product: Partial<Property>;
 }
 const CardFour = ({ product }: Props) => {
   return (

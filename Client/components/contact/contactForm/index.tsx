@@ -32,7 +32,7 @@ const ContactForm = () => {
             />
           </div>
           <div className="w-full">
-            <label className="block text-sm font-semibold mb-2" htmlFor="email">
+            <label className="block text-sm font-semibold" htmlFor="email">
               Email*
             </label>
             <input
@@ -87,18 +87,13 @@ const ContactForm = () => {
           </div>
           <div className="w-full">
             <label
-              className="block text-sm font-semibold mb-2"
+              className="block text-sm font-semibold mb-4"
               htmlFor="reason"
             >
               Why Contact
             </label>
             <Select>
-              <SelectTrigger
-                style={{
-                  height: "3.6rem",
-                }}
-                className="w-full px-4 border-none border border-gray-300 bg-white/50 mt-2 focus:ring-0"
-              >
+              <SelectTrigger className="w-full h-[3.6rem] border-none border border-gray-300 bg-white/50 mt-2 focus:ring-0">
                 <SelectValue placeholder="Reason" />
               </SelectTrigger>
               <SelectContent>
@@ -124,9 +119,9 @@ const ContactForm = () => {
           <Button
             variant="primary"
             type="submit"
-            className="text-white h-20 px-8 text-lg"
+            className="text-white p-8 text-lg"
           >
-            Submit
+            Send Message
           </Button>
         </div>
       </form>

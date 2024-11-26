@@ -1,4 +1,4 @@
-type Product = {
+type Property = {
   id: number;
   images: string[];
   title: string;

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface Props {
-  product: Partial<Product>;
+  product: Partial<Property>;
 }
 const CardTwo = ({ product }: Props) => {
   return (

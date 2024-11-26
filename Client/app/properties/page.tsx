@@ -14,7 +14,7 @@ const Properties = () => {
   const category = searchParams.get("category");
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState("grid");
-  const [properties, setProperties] = useState<Partial<Product>[]>([
+  const [properties, setProperties] = useState<Partial<Property>[]>([
     {
       id: 1,
       images: [img.src],

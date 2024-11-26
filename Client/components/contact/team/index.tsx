@@ -12,7 +12,7 @@ const Team = () => {
           <img
             src={img.src}
             alt=""
-            className="rounded-full h-24 w-24 object-cover mb-4"
+            className="rounded-full h-44 w-44 object-cover mb-4"
           />
           <p className="text-center font-bold mb-2 text-lg">Name</p>
           <a href="#" className="text-center">
@@ -23,7 +23,7 @@ const Team = () => {
           <img
             src={img.src}
             alt=""
-            className="rounded-full h-24 w-24 object-cover mb-4"
+            className="rounded-full h-44 w-44 object-cover mb-4"
           />
           <p className="text-center font-bold mb-2 text-lg">Name</p>
           <a href="#" className="text-center">
@@ -34,7 +34,7 @@ const Team = () => {
           <img
             src={img.src}
             alt=""
-            className="rounded-full h-24 w-24 object-cover mb-4"
+            className="rounded-full h-44 w-44 object-cover mb-4"
           />
           <p className="text-center font-bold mb-2 text-lg">Name</p>
           <a href="#" className="text-center">
@@ -45,7 +45,7 @@ const Team = () => {
           <img
             src={img.src}
             alt=""
-            className="rounded-full h-24 w-24 object-cover mb-4"
+            className="rounded-full h-44 w-44 object-cover mb-4"
           />
           <p className="text-center font-bold mb-2 text-lg">Name</p>
           <a href="#" className="text-center">
@@ -56,7 +56,7 @@ const Team = () => {
           <img
             src={img.src}
             alt=""
-            className="rounded-full h-24 w-24 object-cover mb-4"
+            className="rounded-full h-44 w-44 object-cover mb-4"
           />
           <p className="text-center font-bold mb-2 text-lg">Name</p>
           <a href="#" className="text-center">
