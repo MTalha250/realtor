@@ -1,182 +1,228 @@
 "use client";
 import React, { useState } from "react";
 import img from "@/assets/product.jpg";
-import img1 from "@/assets/hero.jpg";
-import Hero from "@/components/common/hero";
 import { useSearchParams } from "next/navigation";
 import SearchCard from "@/components/common/searchCard";
 import GridThree from "@/components/grids/gridThree";
 import { LayoutGrid, Rows3 } from "lucide-react";
 import GridFour from "@/components/grids/gridFour";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
+import { useRouter } from "next/navigation";
 
 const Properties = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
+  const isLoaded = useGoogleMapsStore((state) => state.isLoaded);
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState("grid");
+  const router = useRouter();
+  const [map, setMap] = useState<google.maps.Map | null>(null);
   const [properties, setProperties] = useState<Partial<Property>[]>([
     {
       id: 1,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Historic Center Apartment",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "Experience the charm of Santa Marta's Historic Center in this cozy apartment. Close to the best restaurants, bars, and cultural spots.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "month",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.2408,
+        longitude: -74.199,
+        region: "Historic Center, Santa Marta",
       },
     },
     {
       id: 2,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Beachfront Villa in Rodadero",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "A luxurious villa steps away from the golden sands of El Rodadero Beach. Perfect for a family getaway or a romantic retreat.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "night",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.243,
+        longitude: -74.211,
+        region: "El Rodadero, Santa Marta",
       },
     },
     {
       id: 3,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Tranquil Retreat near Minca",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "Relax in the lush green hills near Minca, a short drive from Santa Marta. Ideal for nature lovers and peace seekers.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "month",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.245,
+        longitude: -74.1985,
+        region: "Near Minca, Santa Marta",
       },
     },
     {
       id: 4,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Luxury Condo in Pozos Colorados",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "Enjoy stunning ocean views from this modern condo in Pozos Colorados, a quiet neighborhood perfect for relaxation.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "night",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.25,
+        longitude: -74.22,
+        region: "Pozos Colorados, Santa Marta",
       },
     },
     {
       id: 5,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Cozy Apartment near Taganga",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "Stay in this charming apartment near the fishing village of Taganga. Perfect for diving enthusiasts and beach lovers.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "month",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.235,
+        longitude: -74.21,
+        region: "Taganga, Santa Marta",
       },
     },
     {
       id: 6,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Modern Loft near Marina",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "A stylish and modern loft just minutes from Marina Santa Marta. Ideal for exploring the city and enjoying water activities.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "night",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.243,
+        longitude: -74.205,
+        region: "Marina Area, Santa Marta",
       },
     },
     {
       id: 7,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Quiet Home in Gaira",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "A comfortable home in Gaira, a peaceful area near El Rodadero and the main attractions of Santa Marta.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "month",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.23,
+        longitude: -74.215,
+        region: "Gaira, Santa Marta",
       },
     },
     {
       id: 8,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Boutique Apartment in Bello Horizonte",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "Stay in this elegant apartment in Bello Horizonte, close to pristine beaches and high-end restaurants.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "night",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.238,
+        longitude: -74.202,
+        region: "Bello Horizonte, Santa Marta",
       },
     },
     {
       id: 9,
       images: [img.src],
-      title: "Georgia Town Park",
+      title: "Family Home near Quinta de San Pedro",
       description:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+        "A spacious family home located near the historic Quinta de San Pedro Alejandrino, ideal for exploring Santa Marta's heritage.",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
       priceType: "month",
       area: 2000,
       location: {
-        latitude: 33.748997,
-        longitude: -84.387985,
-        region: "Georgia",
+        latitude: 11.239,
+        longitude: -74.22,
+        region: "Near Quinta de San Pedro, Santa Marta",
       },
     },
   ]);
+
+  const center = {
+    lat:
+      properties.reduce(
+        (acc, property) => acc + (property.location?.latitude || 0),
+        0
+      ) / properties.length,
+    lng:
+      properties.reduce(
+        (acc, property) => acc + (property.location?.longitude || 0),
+        0
+      ) / properties.length,
+  };
+
   return (
-    <div>
-      <Hero
-        img={img1.src}
-        title={
-          category === "sale" ? "Properties For Sale" : "Properties For Rent"
-        }
-      />
+    <div className="pt-20">
+      {isLoaded && (
+        <div className="mt-2 relative">
+          <GoogleMap
+            mapContainerStyle={{
+              width: "100%",
+              height: "500px",
+            }}
+            center={center}
+            zoom={15}
+            onLoad={(map) => {
+              setMap(map);
+            }}
+          >
+            {properties.map((property) => (
+              <Marker
+                onClick={() => router.push(`/properties/${property.id}`)}
+                key={property.id}
+                position={{
+                  lat: property.location?.latitude || 0,
+                  lng: property.location?.longitude || 0,
+                }}
+              />
+            ))}
+          </GoogleMap>
+          <button
+            onClick={() => {
+              map?.panTo(center);
+            }}
+            className="font-medium absolute bottom-0 left-0 bg-white text-black rounded-none hover:bg-neutral-200 py-2 px-4 transition duration-300"
+          >
+            Center
+          </button>
+        </div>
+      )}
       <div className="container flex justify-center py-10">
         <SearchCard />
       </div>

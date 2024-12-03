@@ -3,7 +3,7 @@ import { team } from "@/constants";
 
 const Team = () => {
   return (
-    <div className="container py-20">
+    <div className="container py-10">
       <h1 className="text-secondary text-4xl mb-10 text-center font-slab">
         Meet Our Team
       </h1>

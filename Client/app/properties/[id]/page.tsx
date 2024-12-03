@@ -23,9 +23,9 @@ const page = () => {
     priceType: "month",
     area: 2000,
     location: {
-      latitude: 33.748997,
-      longitude: -84.387985,
-      region: "Georgia",
+      latitude: 11.243,
+      longitude: -74.211,
+      region: "El Rodadero, Santa Marta",
     },
     propertyType: "House",
     category: "Residential",
@@ -54,7 +54,11 @@ const page = () => {
       </div>
       <Main property={property} />
       <Video photos={property.images} video={property.video} />
-      <Map />
+      <Map
+        latitude={property.location.latitude}
+        longitude={property.location.longitude}
+        region={property.location.region}
+      />
       <Characteristics characteristics={property.characteristics} />
       {/* <About property={property} /> */}
       <Similar />

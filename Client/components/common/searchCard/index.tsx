@@ -16,20 +16,25 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Autocomplete } from "@react-google-maps/api";
+import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
 
 const SearchCard = () => {
+  const isLoaded = useGoogleMapsStore((state) => state.isLoaded);
   const [propertyType, setPropertyType] = useState("small-house");
   const [location, setLocation] = useState("los-angeles");
   const [priceRange, setPriceRange] = useState("50-100");
   const [filter, setFilter] = useState("sale");
   return (
     <div className="bg-white p-10 flex justify-between items-center w-full shadow-lg">
-      <div className="flex justify-between gap-5 items-end w-full">
-        <label>
+      <div className="flex gap-5 items-end w-full">
+        <label className="w-full">
           <p className="py-2">Map Search</p>
-          <Input placeholder="Search by location" />
+          <Autocomplete>
+            <Input placeholder="Search by location" />
+          </Autocomplete>
         </label>
-        <label>
+        <label className="w-full">
           <Select onValueChange={(e) => setPropertyType(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Property Type
@@ -49,7 +54,7 @@ const SearchCard = () => {
               .join(" ")}
           </p>
         </label>
-        <label>
+        <label className="w-full">
           <Select onValueChange={(e) => setLocation(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Location
@@ -70,7 +75,7 @@ const SearchCard = () => {
               .join(" ")}
           </p>
         </label>
-        <label>
+        <label className="w-full">
           <Select onValueChange={(e) => setPriceRange(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Price Range
@@ -93,7 +98,7 @@ const SearchCard = () => {
               .join(" - ")}
           </p>
         </label>
-        <label>
+        <label className="w-full">
           <Select onValueChange={(e) => setFilter(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Filter
@@ -108,7 +113,7 @@ const SearchCard = () => {
           </p>
         </label>
         <Sheet>
-          <SheetTrigger className="w-fit rounded-md border text-neutral-500 border-neutral-200 bg-white px-3 py-2 whitespace-nowrap">
+          <SheetTrigger className="w-fit bg-primary rounded-md border border-neutral-200 text-white px-3 py-2 whitespace-nowrap hover:bg-primary3 transition duration-300">
             Advance Filters
           </SheetTrigger>
           <SheetContent>
