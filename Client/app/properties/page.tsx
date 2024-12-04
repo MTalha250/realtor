@@ -4,7 +4,7 @@ import img from "@/assets/product.jpg";
 import { useSearchParams } from "next/navigation";
 import SearchCard from "@/components/common/searchCard";
 import GridThree from "@/components/grids/gridThree";
-import { LayoutGrid, Rows3 } from "lucide-react";
+import { LayoutGrid, Rows3, Target } from "lucide-react";
 import GridFour from "@/components/grids/gridFour";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
@@ -217,10 +217,17 @@ const Properties = () => {
             onClick={() => {
               map?.panTo(center);
             }}
-            className="font-medium absolute bottom-0 left-0 bg-white text-black rounded-none hover:bg-neutral-200 py-2 px-4 transition duration-300"
+            className="group font-medium absolute bottom-6 right-14 border shadow bg-white text-black rounded-none py-2 px-4"
           >
-            Center
+            <Target className="text-gray-500 group-hover:text-black" />
           </button>
+          <h1
+            className="
+          bg-secondary2 text-white py-2 px-4
+          absolute bottom-5 left-1/2 -translate-x-1/2 text-4xl font-slab"
+          >
+            Properties for {category == "sale" ? "Sale" : "Rent"}
+          </h1>
         </div>
       )}
       <div className="container flex justify-center py-10">

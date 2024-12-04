@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -5,14 +6,17 @@ interface Props {
 }
 const CardTwo = ({ product }: Props) => {
   return (
-    <div className="relative rounded-xl h-60">
+    <Link
+      href={`/properties/${product.id}`}
+      className="relative rounded-xl h-60 group"
+    >
       <img
         src={product.images?.[0]}
         alt={product.title}
         className="w-full h-full object-cover absolute top-0 left-0 rounded-xl"
       />
       <div className="w-full absolute left-0 bottom-0 p-5">
-        <div className="bg-white rounded-lg p-5 hover:scale-105 transition duration-300">
+        <div className="bg-white rounded-lg p-5 group-hover:scale-105 transition duration-300">
           <div className="flex justify-between">
             <h1 className="font-bold mb-2 w-2/3">{product.title}</h1>
             <span className="font-bold text-secondary">
@@ -26,7 +30,7 @@ const CardTwo = ({ product }: Props) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

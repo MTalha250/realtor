@@ -1,12 +1,16 @@
 import React from "react";
 import { MapPin, Bed, Bath, LandPlot, Heart } from "lucide-react";
+import Link from "next/link";
 
 interface Props {
   product: Partial<Property>;
 }
 const CardFour = ({ product }: Props) => {
   return (
-    <div className="rounded-2xl border border-white bg-white overflow-hidden hover:scale-105 transition duration-300">
+    <Link
+      href={`/properties/${product.id}`}
+      className="rounded-2xl border border-white bg-white overflow-hidden hover:scale-105 transition duration-300"
+    >
       <img
         src={product.images?.[0]}
         alt={product.title}
@@ -47,7 +51,7 @@ const CardFour = ({ product }: Props) => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

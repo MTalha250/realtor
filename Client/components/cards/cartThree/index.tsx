@@ -1,12 +1,16 @@
 import React from "react";
 import { MapPin, Bed, Bath, LandPlot, Heart } from "lucide-react";
+import Link from "next/link";
 
 interface Props {
   product: Partial<Property>;
 }
 const CardThree = ({ product }: Props) => {
   return (
-    <div className="relative p-5 flex bg-white gap-10 hover:scale-105 transition duration-300">
+    <Link
+      href={`/properties/${product.id}`}
+      className="relative p-5 flex bg-white gap-10 hover:scale-105 transition duration-300"
+    >
       <img
         src={product.images?.[0]}
         alt={product.title}
@@ -43,7 +47,7 @@ const CardThree = ({ product }: Props) => {
       <button className="p-3 rounded-full border absolute bottom-5 right-5">
         <Heart strokeWidth={0.75} size={30} />
       </button>
-    </div>
+    </Link>
   );
 };
 
