@@ -3,13 +3,16 @@ import { team } from "@/constants";
 
 const Team = () => {
   return (
-    <div className="container py-10">
+    <div className="container py-10 px-4">
       <h1 className="text-secondary text-4xl mb-10 text-center font-slab">
         Meet Our Team
       </h1>
-      <div className="flex justify-center gap-20">
+      <div className="flex flex-wrap justify-center gap-10 sm:gap-20">
         {team.map((item, index) => (
-          <div key={index} className="flex flex-col items-center">
+          <div
+            key={index}
+            className="flex flex-col items-center w-full sm:w-auto"
+          >
             <img
               src={item.img}
               alt={item.name}

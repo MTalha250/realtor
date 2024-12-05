@@ -9,15 +9,15 @@ interface Props {
 
 const TestimonialCard = ({ image, name, comment, rating }: Props) => {
   return (
-    <div className="bg-white rounded-2xl flex flex-col items-center p-10 hover:scale-105 transition duration-300">
+    <div className="bg-white rounded-2xl flex flex-col items-center p-6 sm:p-8 md:p-10 hover:scale-105 transition duration-300 shadow-lg max-w-xs sm:max-w-sm md:max-w-md mx-auto">
       <img
         src={image}
-        alt=""
-        className="rounded-full object-cover h-24 w-24 mb-4"
+        alt={name}
+        className="rounded-full object-cover h-24 w-24 mb-4 max-w-full"
       />
-      <h1 className="text-2xl font-bold mb-4">{name}</h1>
-      <p className="text-center px-5 mb-4">{comment}</p>
-      <div className="flex">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 text-center">{name}</h1>
+      <p className="text-center px-5 mb-4 text-sm sm:text-base">{comment}</p>
+      <div className="flex justify-center gap-1">
         {[1, 2, 3, 4, 5].map((item) => (
           <svg
             key={item}

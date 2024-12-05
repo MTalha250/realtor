@@ -5,18 +5,19 @@ import Link from "next/link";
 interface Props {
   product: Partial<Property>;
 }
+
 const CardThree = ({ product }: Props) => {
   return (
     <Link
       href={`/properties/${product.id}`}
-      className="relative p-5 flex bg-white gap-10 hover:scale-105 transition duration-300"
+      className="relative p-5 flex flex-col sm:flex-row bg-white gap-10 hover:scale-105 transition duration-300"
     >
       <img
         src={product.images?.[0]}
         alt={product.title}
-        className="h-[35vh] w-96 object-cover"
+        className="h-[35vh] sm:h-72 md:h-80 w-full sm:w-96 object-cover rounded-xl"
       />
-      <div className="flex-1">
+      <div className="flex-1 mt-4 sm:mt-0">
         <h1 className="text-2xl font-semibold mb-4">{product.title}</h1>
         <p className="text-gray-500 text-lg mb-4 line-clamp-2">
           {product.description}
@@ -25,7 +26,7 @@ const CardThree = ({ product }: Props) => {
           <MapPin strokeWidth={0.75} />
           <span>{product.location?.region}</span>
         </p>
-        <div className="flex gap-3 mb-4">
+        <div className="flex flex-wrap gap-3 mb-4">
           <div className="flex items-center gap-2 bg-neutral-200 rounded-full p-3">
             <Bed strokeWidth={0.75} />
             <span>{product.bedrooms} Beds</span>

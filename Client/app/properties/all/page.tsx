@@ -82,13 +82,14 @@ const AllProperties = () => {
       category: "rent",
     },
   ]);
+
   return (
     <div>
       <Hero title="All Properties" img={img1.src} />
-      <div className="container flex justify-center py-10">
+      <div className="container flex justify-center py-8 px-4 sm:px-6 lg:px-8">
         <SearchCard />
       </div>
-      <div className="container">
+      <div className="container px-4 sm:px-6 lg:px-8">
         <GridTwo products={properties} loading={loading} />
       </div>
     </div>

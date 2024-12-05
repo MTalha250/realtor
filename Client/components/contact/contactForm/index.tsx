@@ -11,16 +11,16 @@ import React from "react";
 
 const ContactForm = () => {
   return (
-    <div className="container py-10">
+    <div className="container py-10 px-4">
       <h1 className="text-4xl font-slab text-center text-secondary mb-4">
         Get In Touch
       </h1>
       <p className="text-center mb-4">
-        Fill up the form our team will get back to you within 24 Hours
+        Fill up the form and our team will get back to you within 24 Hours
       </p>
       <form className="flex flex-col gap-5">
-        <div className="flex gap-5">
-          <div className="w-full">
+        <div className="flex flex-wrap gap-5">
+          <div className="w-full sm:w-1/2">
             <label className="block text-sm font-semibold" htmlFor="fullName">
               Full Name*
             </label>
@@ -31,7 +31,7 @@ const ContactForm = () => {
               className="w-full p-4 border border-gray-300 bg-white/50 mt-2"
             />
           </div>
-          <div className="w-full">
+          <div className="w-full sm:w-1/2">
             <label className="block text-sm font-semibold" htmlFor="email">
               Email*
             </label>
@@ -43,8 +43,8 @@ const ContactForm = () => {
             />
           </div>
         </div>
-        <div className="flex gap-5">
-          <div className="w-full">
+        <div className="flex flex-wrap gap-5">
+          <div className="w-full sm:w-1/2">
             <label
               className="block text-sm font-semibold mb-2"
               htmlFor="number"
@@ -58,7 +58,7 @@ const ContactForm = () => {
               className="w-full p-4 border border-gray-300 bg-white/50 mt-2"
             />
           </div>
-          <div className="w-full">
+          <div className="w-full sm:w-1/2">
             <label
               className="block text-sm font-semibold mb-2"
               htmlFor="country"
@@ -73,8 +73,8 @@ const ContactForm = () => {
             />
           </div>
         </div>
-        <div className="flex gap-5">
-          <div className="w-full">
+        <div className="flex flex-wrap gap-5">
+          <div className="w-full sm:w-1/2">
             <label className="block text-sm font-semibold mb-2" htmlFor="city">
               City*
             </label>
@@ -85,7 +85,7 @@ const ContactForm = () => {
               className="w-full p-4 border border-gray-300 bg-white/50 mt-2"
             />
           </div>
-          <div className="w-full">
+          <div className="w-full sm:w-1/2">
             <label
               className="block text-sm font-semibold mb-4"
               htmlFor="reason"

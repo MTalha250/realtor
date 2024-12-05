@@ -29,14 +29,16 @@ const Blogs = () => {
     },
   ]);
   const [loading, setLoading] = useState(false);
-  useState;
+
   return (
-    <div className="container">
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-slab">Latest Updates</h1>
+    <div className="container px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-4xl font-slab text-center sm:text-left">
+          Latest Updates
+        </h1>
         <Link
           href="/blogs"
-          className="bg-secondary py-2 text-lg px-10 text-white rounded-md hover:bg-secondary2 transition duration-300"
+          className="bg-secondary py-2 px-6 sm:px-10 text-sm sm:text-lg text-white rounded-md hover:bg-secondary2 transition duration-300 text-center"
         >
           View All
         </Link>

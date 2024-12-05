@@ -26,15 +26,15 @@ const SearchCard = () => {
   const [priceRange, setPriceRange] = useState("50-100");
   const [filter, setFilter] = useState("sale");
   return (
-    <div className="bg-white p-10 flex justify-between items-center w-full shadow-lg">
-      <div className="flex gap-5 items-end w-full">
-        <label className="w-full">
+    <div className="bg-white p-6 sm:p-10 flex flex-wrap justify-between items-center w-full shadow-lg">
+      <div className="flex flex-wrap gap-5 items-end w-full sm:w-auto">
+        <label className="w-full sm:w-1/2 md:w-1/4">
           <p className="py-2">Map Search</p>
           <Autocomplete>
             <Input placeholder="Search by location" />
           </Autocomplete>
         </label>
-        <label className="w-full">
+        <label className="w-full sm:w-1/2 md:w-1/4">
           <Select onValueChange={(e) => setPropertyType(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Property Type
@@ -54,7 +54,7 @@ const SearchCard = () => {
               .join(" ")}
           </p>
         </label>
-        <label className="w-full">
+        <label className="w-full sm:w-1/2 md:w-1/4">
           <Select onValueChange={(e) => setLocation(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Location
@@ -68,14 +68,13 @@ const SearchCard = () => {
             </SelectContent>
           </Select>
           <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
-            {" "}
             {location
               .split("-")
               .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
               .join(" ")}
           </p>
         </label>
-        <label className="w-full">
+        <label className="w-full sm:w-1/2 md:w-1/4">
           <Select onValueChange={(e) => setPriceRange(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Price Range
@@ -98,7 +97,7 @@ const SearchCard = () => {
               .join(" - ")}
           </p>
         </label>
-        <label className="w-full">
+        <label className="w-full sm:w-1/2 md:w-1/4">
           <Select onValueChange={(e) => setFilter(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
               Filter
@@ -128,7 +127,7 @@ const SearchCard = () => {
         </Sheet>
         <Button
           variant="primary"
-          className="text-white text-lg px-8 rounded-md"
+          className="text-white text-lg px-8 rounded-md sm:w-full md:w-auto"
         >
           Search
         </Button>

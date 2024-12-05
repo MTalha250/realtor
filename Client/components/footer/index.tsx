@@ -1,5 +1,5 @@
-import React from "react";
 import Link from "next/link"; // Importing Next.js Link
+import React from "react";
 import logo from "@/assets/logo.png";
 import {
   Facebook,
@@ -19,9 +19,9 @@ import {
 const Footer = () => {
   return (
     <div className="bg-[#f1f1f1] py-10">
-      <div className="container grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-8 px-6">
+      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 px-6">
         {/* Logo and Address */}
-        <div>
+        <div className="flex flex-col items-center sm:items-start">
           <img src={logo.src} alt="Logo" className="w-44 mb-4" />
           <p className="flex items-center text-gray-600">
             <MapPin className="w-5 h-5 mr-2" /> 123 Anywhere
@@ -31,7 +31,7 @@ const Footer = () => {
         </div>
 
         {/* About Us */}
-        <div>
+        <div className="flex flex-col">
           <h3 className="font-bold text-lg mb-4">About Us</h3>
           <ul className="space-y-3">
             <li>
@@ -65,7 +65,7 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div>
+        <div className="flex flex-col">
           <h3 className="font-bold text-lg mb-4">Quick Links</h3>
           <ul className="space-y-3">
             <li>
@@ -108,7 +108,7 @@ const Footer = () => {
         </div>
 
         {/* Social Media */}
-        <div>
+        <div className="flex flex-col">
           <h3 className="font-bold text-lg mb-4">Social Media</h3>
           <ul className="space-y-3">
             <li>
@@ -151,7 +151,7 @@ const Footer = () => {
         </div>
 
         {/* Map Section */}
-        <div className="col-span-2 flex flex-col items-center">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col items-center">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26892657.307891723!2d-113.74375805576314!3d36.24345041242574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDE0JzM2LjAiTiA3MMKwMDAnMDAuMCJX!5e0!3m2!1sen!2sus!4v1637573808651!5m2!1sen!2sus"
             title="USA Map"

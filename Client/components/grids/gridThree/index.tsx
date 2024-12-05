@@ -9,13 +9,13 @@ interface Props {
 
 const GridThree = ({ products, loading }: Props) => {
   return loading ? (
-    <div className="flex flex-col gap-10 my-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 my-10">
       {[...Array(9)].map((_, index) => (
         <Skeleton key={index} className="w-full h-60 rounded-none" />
       ))}
     </div>
   ) : products.length > 0 ? (
-    <div className="flex flex-col gap-10 my-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 my-10">
       {products.map((product) => (
         <CardThree key={product.id} product={product} />
       ))}

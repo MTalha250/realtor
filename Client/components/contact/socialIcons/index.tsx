@@ -6,34 +6,50 @@ import tiktok from "@/assets/tiktok.png";
 
 const SocialIcons = () => {
   return (
-    <div className="container py-10">
+    <div className="container py-10 px-4">
       <h1 className="text-4xl text-center font-slab mb-10">
         Follow us on Social Media
       </h1>
-      <div className="flex justify-center gap-20">
+      <div className="flex flex-wrap justify-center gap-10 sm:gap-20">
         <a
           href="https://wa.me/1234567890"
           className="hover:scale-105 transition duration-300"
         >
-          <img src={whatsapp.src} alt="whatsapp" className="w-14 h-14" />
+          <img
+            src={whatsapp.src}
+            alt="whatsapp"
+            className="w-14 h-14 sm:w-16 sm:h-16"
+          />
         </a>
         <a
           href="https://facebook.com"
           className="hover:scale-105 transition duration-300"
         >
-          <img src={facebook.src} alt="facebook" className="w-14 h-14" />
+          <img
+            src={facebook.src}
+            alt="facebook"
+            className="w-14 h-14 sm:w-16 sm:h-16"
+          />
         </a>
         <a
           href="https://instagram.com"
           className="hover:scale-105 transition duration-300"
         >
-          <img src={instagram.src} alt="instagram" className="w-14 h-14" />
+          <img
+            src={instagram.src}
+            alt="instagram"
+            className="w-14 h-14 sm:w-16 sm:h-16"
+          />
         </a>
         <a
           href="https://twitter.com"
           className="hover:scale-105 transition duration-300"
         >
-          <img src={tiktok.src} alt="twitter" className="w-14 h-14" />
+          <img
+            src={tiktok.src}
+            alt="twitter"
+            className="w-14 h-14 sm:w-16 sm:h-16"
+          />
         </a>
       </div>
     </div>

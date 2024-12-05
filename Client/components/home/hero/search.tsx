@@ -13,9 +13,10 @@ const SearchCard = () => {
   const [location, setLocation] = useState("los-angeles");
   const [priceRange, setPriceRange] = useState("50-100");
   const [filter, setFilter] = useState("sale");
+
   return (
-    <div className="bg-white p-10 gap-10 justify-center flex items-center whitespace-nowrap w-[90%] shadow-lg">
-      <label className="w-full">
+    <div className="bg-white p-6 sm:p-10 gap-6 sm:gap-10 flex flex-col sm:flex-row items-center w-[90%] sm:w-auto shadow-lg">
+      <label className="w-full sm:w-auto">
         <Select onValueChange={(e) => setPropertyType(e)}>
           <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-lg">
             Property Type
@@ -28,14 +29,15 @@ const SearchCard = () => {
             <SelectItem value="commercial">Commercial</SelectItem>
           </SelectContent>
         </Select>
-        <p className="font-semibold text-xl">
+        <p className="font-semibold text-base sm:text-xl">
           {propertyType
             .split("-")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}
         </p>
       </label>
-      <label className="w-full">
+
+      <label className="w-full sm:w-auto">
         <Select onValueChange={(e) => setLocation(e)}>
           <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-lg">
             Location
@@ -48,15 +50,15 @@ const SearchCard = () => {
             <SelectItem value="seattle">Seattle</SelectItem>
           </SelectContent>
         </Select>
-        <p className="font-semibold text-xl">
-          {" "}
+        <p className="font-semibold text-base sm:text-xl">
           {location
             .split("-")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}
         </p>
       </label>
-      <label className="w-full">
+
+      <label className="w-full sm:w-auto">
         <Select onValueChange={(e) => setPriceRange(e)}>
           <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-lg">
             Price Range
@@ -67,7 +69,7 @@ const SearchCard = () => {
             <SelectItem value="200-500">$200k - $500k</SelectItem>
           </SelectContent>
         </Select>
-        <p className="font-semibold text-xl">
+        <p className="font-semibold text-base sm:text-xl">
           {priceRange
             .split("-")
             .map((word) => {
@@ -79,7 +81,8 @@ const SearchCard = () => {
             .join(" - ")}
         </p>
       </label>
-      <label className="w-full">
+
+      <label className="w-full sm:w-auto">
         <Select onValueChange={(e) => setFilter(e)}>
           <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-lg">
             Filter
@@ -89,13 +92,14 @@ const SearchCard = () => {
             <SelectItem value="rent">For Rent</SelectItem>
           </SelectContent>
         </Select>
-        <p className="font-semibold text-xl">
+        <p className="font-semibold text-base sm:text-xl">
           {filter[0].toUpperCase() + filter.slice(1)}
         </p>
       </label>
+
       <Button
         variant="primary"
-        className="rounded-none text-lg w-full  py-8 px-10"
+        className="rounded-none text-base sm:text-lg w-full sm:w-auto py-4 sm:py-8 px-4 sm:px-10"
       >
         Search Property
       </Button>

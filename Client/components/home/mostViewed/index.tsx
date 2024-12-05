@@ -77,20 +77,21 @@ const MostViewed = () => {
     },
   ]);
 
-  useState;
   return (
-    <div className="container py-20">
-      <div className="w-full bg-[#F1F1F1] rounded-3xl shadow py-10 px-20">
-        <h1 className="text-4xl text-center font-slab mb-4">Most Viewed</h1>
-        <p className="text-center mb-8">
+    <div className="container py-10 sm:py-20 mt-10 sm:mt-20">
+      <div className="w-full bg-[#F1F1F1] rounded-3xl shadow py-8 px-5 sm:py-10 sm:px-20">
+        <h1 className="text-2xl sm:text-4xl text-center font-slab mb-4">
+          Most Viewed
+        </h1>
+        <p className="text-center text-sm sm:text-base mb-6 sm:mb-8">
           We offer a widest section of the newest properties ready for you to
           explore
         </p>
-        <div className="w-full bg-white flex justify-between items-center p-5 rounded-2xl">
-          <div className="flex gap-5 items-center">
+        <div className="w-full bg-white flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between items-center p-5 rounded-2xl">
+          <div className="flex gap-3 sm:gap-5 items-center flex-wrap justify-center">
             <Button
               className={
-                "text-lg h-16 rounded-xl px-8 bg-transparent text-black hover:bg-primary hover:text-white transition duration-200 " +
+                "text-sm sm:text-lg h-12 sm:h-16 rounded-xl px-6 sm:px-8 bg-transparent text-black hover:bg-primary hover:text-white transition duration-200 " +
                 (selected === "new-developments" ? "bg-primary text-white" : "")
               }
               onClick={() => setSelected("new-developments")}
@@ -99,7 +100,7 @@ const MostViewed = () => {
             </Button>
             <Button
               className={
-                "text-lg h-16 rounded-xl px-8 bg-transparent text-black hover:bg-primary hover:text-white transition duration-200 " +
+                "text-sm sm:text-lg h-12 sm:h-16 rounded-xl px-6 sm:px-8 bg-transparent text-black hover:bg-primary hover:text-white transition duration-200 " +
                 (selected === "used-properties" ? "bg-primary text-white" : "")
               }
               onClick={() => setSelected("used-properties")}
@@ -108,7 +109,7 @@ const MostViewed = () => {
             </Button>
             <Button
               className={
-                "text-lg h-16 rounded-xl px-8 bg-transparent text-black hover:bg-primary hover:text-white transition duration-200 " +
+                "text-sm sm:text-lg h-12 sm:h-16 rounded-xl px-6 sm:px-8 bg-transparent text-black hover:bg-primary hover:text-white transition duration-200 " +
                 (selected === "rentals" ? "bg-primary text-white" : "")
               }
               onClick={() => setSelected("rentals")}
@@ -118,7 +119,7 @@ const MostViewed = () => {
           </div>
           <Link
             href="/properties/all"
-            className="text-lg h-16 rounded-xl px-8 bg-primary text-white flex items-center justify-center hover:bg-primary3 transition duration-300"
+            className="text-sm sm:text-lg h-12 sm:h-16 rounded-xl px-6 sm:px-8 bg-primary text-white flex items-center justify-center hover:bg-primary3 transition duration-300"
           >
             All Properties
           </Link>

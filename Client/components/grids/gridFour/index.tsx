@@ -9,13 +9,13 @@ interface Props {
 
 const GridFour = ({ products, loading }: Props) => {
   return loading ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 my-10 p-4 sm:p-6 md:p-8">
       {[...Array(9)].map((_, index) => (
         <Skeleton key={index} className="rounded-xl h-[60vh]" />
       ))}
     </div>
   ) : products.length > 0 ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 my-10 p-4 sm:p-6 md:p-8">
       {products.map((product) => (
         <CardFour key={product.id} product={product} />
       ))}
