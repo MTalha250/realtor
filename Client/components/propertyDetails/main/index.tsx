@@ -13,7 +13,6 @@ interface Props {
 const Main = ({ property }: Props) => {
   return (
     <div className="flex flex-col sm:flex-row gap-5 py-10">
-      
       <div className="w-full sm:w-2/3">
         <h1 className="text-3xl sm:text-5xl font-slab font-light mb-5">
           {property.title}
@@ -38,9 +37,7 @@ const Main = ({ property }: Props) => {
         </p>
       </div>
 
-
       <div className="w-full sm:w-1/3 border border-black p-5 sm:p-10">
-
         <div className="flex gap-5 mb-4">
           <Avatar>
             <AvatarImage

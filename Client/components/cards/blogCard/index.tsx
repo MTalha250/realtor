@@ -11,14 +11,10 @@ const BlogCard = ({ blog }: Props) => {
       <img
         src={blog.titleImage}
         alt="blog"
-        className="w-full h-48 sm:h-96 object-cover rounded-xl mb-4"
+        className="w-full h-96 object-cover rounded-xl mb-4"
       />
-      <h1 className="text-xl sm:text-2xl font-bold text-primary mb-2">
-        {blog.title}
-      </h1>
-      <p className="line-clamp-2 text-sm sm:text-base mb-8">
-        {blog.description}
-      </p>
+      <h1 className="text-2xl font-bold text-primary mb-2">{blog.title}</h1>
+      <p className="line-clamp-2 mb-8">{blog.description}</p>
       <Link
         href={`/blogs/${blog.id}`}
         className="bg-secondary text-white py-2 px-4 rounded-md hover:bg-secondary2 transition duration-300"

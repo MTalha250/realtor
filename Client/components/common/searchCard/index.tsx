@@ -29,7 +29,6 @@ const SearchCard = () => {
   return (
     <div className="bg-white p-5 md:p-10 flex flex-wrap md:flex-nowrap gap-5 justify-between items-center w-full shadow-lg">
       <div className="flex flex-wrap gap-5 items-end w-full">
-  
         <label className="w-full md:w-auto flex-1">
           <p className="py-2 text-sm md:text-base">Map Search</p>
           <Autocomplete>
@@ -37,7 +36,6 @@ const SearchCard = () => {
           </Autocomplete>
         </label>
 
-       
         <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setPropertyType(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
@@ -59,7 +57,6 @@ const SearchCard = () => {
           </p>
         </label>
 
-     
         <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setLocation(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
@@ -81,7 +78,6 @@ const SearchCard = () => {
           </p>
         </label>
 
-   
         <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setPriceRange(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
@@ -106,7 +102,6 @@ const SearchCard = () => {
           </p>
         </label>
 
-
         <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setFilter(e)}>
             <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
@@ -122,7 +117,6 @@ const SearchCard = () => {
           </p>
         </label>
 
-   
         <Sheet>
           <SheetTrigger className="w-fit bg-primary rounded-md border border-neutral-200 text-white px-3 py-2 whitespace-nowrap hover:bg-primary3 transition duration-300 text-sm md:text-base">
             Advance Filters
@@ -138,7 +132,6 @@ const SearchCard = () => {
           </SheetContent>
         </Sheet>
 
-      
         <Button
           variant="primary"
           className="text-white text-sm md:text-lg px-8 rounded-md"
