@@ -194,7 +194,7 @@ const Properties = () => {
           <GoogleMap
             mapContainerStyle={{
               width: "100%",
-              height: "300px", 
+              height: "500px",
             }}
             center={center}
             zoom={15}
@@ -217,25 +217,29 @@ const Properties = () => {
             onClick={() => {
               map?.panTo(center);
             }}
-            className="group font-medium absolute bottom-6 right-4 sm:right-14 border shadow bg-white text-black rounded-none py-2 px-4"
+            className="group font-medium absolute bottom-6 right-14 border shadow bg-white text-black rounded-none py-2 px-4"
           >
             <Target className="text-gray-500 group-hover:text-black" />
           </button>
-          <h1 className="bg-secondary2 text-white py-2 px-4 absolute bottom-5 left-1/2 -translate-x-1/2 text-xl sm:text-4xl font-slab">
+          <h1
+            className="
+          bg-secondary2 text-white py-2 px-4
+          absolute bottom-5 left-1/2 -translate-x-1/2 text-4xl font-slab"
+          >
             Properties for {category == "sale" ? "Sale" : "Rent"}
           </h1>
         </div>
       )}
-      <div className="container flex justify-center py-10 px-4 sm:px-0">
+      <div className="container flex justify-center py-10">
         <SearchCard />
       </div>
       <div className="container">
         <div className="w-full relative h-5">
           <div className="flex gap-3 absolute right-0">
-            <button onClick={() => setView("grid")} className="sm:p-2 p-1">
+            <button onClick={() => setView("grid")}>
               <LayoutGrid size={30} className="text-primary" />
             </button>
-            <button onClick={() => setView("list")} className="sm:p-2 p-1">
+            <button onClick={() => setView("list")}>
               <Rows3 size={30} className="text-primary" />
             </button>
           </div>

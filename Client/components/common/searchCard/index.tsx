@@ -25,18 +25,22 @@ const SearchCard = () => {
   const [location, setLocation] = useState("los-angeles");
   const [priceRange, setPriceRange] = useState("50-100");
   const [filter, setFilter] = useState("sale");
+
   return (
-    <div className="bg-white p-6 sm:p-10 flex flex-wrap justify-between items-center w-full shadow-lg">
-      <div className="flex flex-wrap gap-5 items-end w-full sm:w-auto">
-        <label className="w-full sm:w-1/2 md:w-1/4">
-          <p className="py-2">Map Search</p>
+    <div className="bg-white p-5 md:p-10 flex flex-wrap md:flex-nowrap gap-5 justify-between items-center w-full shadow-lg">
+      <div className="flex flex-wrap gap-5 items-end w-full">
+  
+        <label className="w-full md:w-auto flex-1">
+          <p className="py-2 text-sm md:text-base">Map Search</p>
           <Autocomplete>
             <Input placeholder="Search by location" />
           </Autocomplete>
         </label>
-        <label className="w-full sm:w-1/2 md:w-1/4">
+
+       
+        <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setPropertyType(e)}>
-            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
+            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
               Property Type
             </SelectTrigger>
             <SelectContent>
@@ -47,16 +51,18 @@ const SearchCard = () => {
               <SelectItem value="commercial">Commercial</SelectItem>
             </SelectContent>
           </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
+          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 text-sm md:text-base">
             {propertyType
               .split("-")
               .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
               .join(" ")}
           </p>
         </label>
-        <label className="w-full sm:w-1/2 md:w-1/4">
+
+     
+        <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setLocation(e)}>
-            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
+            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
               Location
             </SelectTrigger>
             <SelectContent>
@@ -67,16 +73,18 @@ const SearchCard = () => {
               <SelectItem value="seattle">Seattle</SelectItem>
             </SelectContent>
           </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
+          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 text-sm md:text-base">
             {location
               .split("-")
               .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
               .join(" ")}
           </p>
         </label>
-        <label className="w-full sm:w-1/2 md:w-1/4">
+
+   
+        <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setPriceRange(e)}>
-            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
+            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
               Price Range
             </SelectTrigger>
             <SelectContent>
@@ -85,7 +93,7 @@ const SearchCard = () => {
               <SelectItem value="200-500">$200k - $500k</SelectItem>
             </SelectContent>
           </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
+          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 text-sm md:text-base">
             {priceRange
               .split("-")
               .map((word) => {
@@ -97,9 +105,11 @@ const SearchCard = () => {
               .join(" - ")}
           </p>
         </label>
-        <label className="w-full sm:w-1/2 md:w-1/4">
+
+
+        <label className="w-full md:w-auto flex-1">
           <Select onValueChange={(e) => setFilter(e)}>
-            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
+            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-sm md:text-base">
               Filter
             </SelectTrigger>
             <SelectContent>
@@ -107,12 +117,14 @@ const SearchCard = () => {
               <SelectItem value="rent">For Rent</SelectItem>
             </SelectContent>
           </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
+          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 text-sm md:text-base">
             {filter[0].toUpperCase() + filter.slice(1)}
           </p>
         </label>
+
+   
         <Sheet>
-          <SheetTrigger className="w-fit bg-primary rounded-md border border-neutral-200 text-white px-3 py-2 whitespace-nowrap hover:bg-primary3 transition duration-300">
+          <SheetTrigger className="w-fit bg-primary rounded-md border border-neutral-200 text-white px-3 py-2 whitespace-nowrap hover:bg-primary3 transition duration-300 text-sm md:text-base">
             Advance Filters
           </SheetTrigger>
           <SheetContent>
@@ -125,9 +137,11 @@ const SearchCard = () => {
             </SheetHeader>
           </SheetContent>
         </Sheet>
+
+      
         <Button
           variant="primary"
-          className="text-white text-lg px-8 rounded-md sm:w-full md:w-auto"
+          className="text-white text-sm md:text-lg px-8 rounded-md"
         >
           Search
         </Button>

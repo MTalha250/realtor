@@ -6,16 +6,15 @@ interface Props {
   blogs: Partial<Blog>[];
   loading: boolean;
 }
-
 const BlogGrid = ({ blogs, loading }: Props) => {
   return loading ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 my-10 p-4 sm:p-6 md:p-8 min-h-screen">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10 min-h-screen">
       {[...Array(6)].map((_, index) => (
-        <Skeleton key={index} className="rounded-2xl h-60" />
+        <Skeleton key={index} className="rounded-2xl" />
       ))}
     </div>
   ) : blogs.length > 0 ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 my-10 p-4 sm:p-6 md:p-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
       {blogs.map((blog) => (
         <BlogCard key={blog.id} blog={blog} />
       ))}
