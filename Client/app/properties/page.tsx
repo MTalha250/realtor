@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 const Properties = () => {
   const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  const dealType = searchParams.get("dealType");
   const isLoaded = useGoogleMapsStore((state) => state.isLoaded);
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState("grid");
@@ -226,7 +226,7 @@ const Properties = () => {
           bg-secondary2 text-white py-2 px-4
           absolute bottom-5 left-1/2 -translate-x-1/2 text-4xl font-slab"
           >
-            Properties for {category == "sale" ? "Sale" : "Rent"}
+            Properties for {dealType == "sale" ? "Sale" : "Rent"}
           </h1>
         </div>
       )}
