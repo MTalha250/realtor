@@ -19,16 +19,47 @@ import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
 //@ts-ignore
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchCard = () => {
   const isLoaded = useGoogleMapsStore((state) => state.isLoaded);
+  const searchParams = useSearchParams();
+  const dealType = searchParams.get("dealType");
+  const locationParam = searchParams.get("location");
+  const radiusParam = searchParams.get("radius");
+  const propertyTypeParam = searchParams.get("propertyType");
+  const minParam = searchParams.get("min");
+  const maxParam = searchParams.get("max");
+  const bedsParam = searchParams.get("beds");
+  const bathsParam = searchParams.get("baths");
+  const viewsParam = searchParams.get("views");
+  const outdoorParam = searchParams.get("outdoor");
+  const propertyStyleParam = searchParams.get("propertyStyle");
+  const leaseTermParam = searchParams.get("leaseTerm");
+  const floorsParam = searchParams.get("floors");
+  const noiseLevelParam = searchParams.get("noiseLevel");
+  const laundryParam = searchParams.get("laundry");
+  const securityFeaturesParam = searchParams.get("securityFeatures");
+  const amenitiesParam = searchParams.get("amenities");
+  const internetParam = searchParams.get("internet");
+  const heatingParam = searchParams.get("heating");
+  const coolingParam = searchParams.get("cooling");
   const router = useRouter();
-  const [location, setLocation] = useState<object>({
-    longitude: 0,
-    latitude: 0,
-    region: "",
-  });
+  interface Location {
+    longitude: number;
+    latitude: number;
+    region: string;
+  }
+
+  const [location, setLocation] = useState<Location>(
+    locationParam
+      ? JSON.parse(locationParam)
+      : {
+          longitude: 0,
+          latitude: 0,
+          region: "",
+        }
+  );
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
   const handlePlaceChanged = () => {
@@ -59,55 +90,94 @@ const SearchCard = () => {
         const region = `${area || ""}, ${city || ""}, ${country || ""}`
           .replace(/, , /g, ", ")
           .replace(/, $/, "");
-        setLocation({ latitude: lat, longitude: lng, region });
+        if (lat !== undefined && lng !== undefined) {
+          setLocation({ latitude: lat, longitude: lng, region });
+        }
       } else {
         console.log("No geometry information available for the place.");
       }
     }
   };
-  const [propertyType, setPropertyType] = useState<string[]>([]);
-  const [radius, setRadius] = useState<string>("");
-  const [min, setMin] = useState<number>(50);
-  const [max, setMax] = useState<number>(100);
+  const [propertyType, setPropertyType] = useState<string[]>(
+    propertyTypeParam ? JSON.parse(propertyTypeParam) : []
+  );
+  const [radius, setRadius] = useState<string>(radiusParam || "");
+  const [min, setMin] = useState<number>(Number(minParam) || 50);
+  const [max, setMax] = useState<number>(Number(maxParam) || 500);
   const [minPrice, setMinPrice] = useState<number>(50);
   const [maxPrice, setMaxPrice] = useState<number>(500);
-  const [beds, setBeds] = useState<string[]>([]);
-  const [baths, setBaths] = useState<string[]>([]);
-  const [views, setViews] = useState<string[]>([]);
-  const [outdoor, setOutdoor] = useState<string[]>([]);
-  const [propertyStyle, setPropertyStyle] = useState<string[]>([]);
-  const [leaseTerm, setLeaseTerm] = useState<string[]>([]);
-  const [floors, setFloors] = useState<string[]>([]);
-  const [noiseLevel, setNoiseLevel] = useState<string[]>([]);
-  const [laundry, setLaundry] = useState<string[]>([]);
-  const [securityFeatures, setSecurityFeatures] = useState<string[]>([]);
-  const [amenities, setAmenities] = useState<string[]>([]);
-  const [internet, setInternet] = useState<string[]>([]);
-  const [heating, setHeating] = useState<string[]>([]);
-  const [cooling, setCooling] = useState<string[]>([]);
+  const [beds, setBeds] = useState<string[]>(
+    bedsParam ? JSON.parse(bedsParam) : []
+  );
+  const [baths, setBaths] = useState<string[]>(
+    bathsParam ? JSON.parse(bathsParam) : []
+  );
+  const [views, setViews] = useState<string[]>(
+    viewsParam ? JSON.parse(viewsParam) : []
+  );
+  const [outdoor, setOutdoor] = useState<string[]>(
+    outdoorParam ? JSON.parse(outdoorParam) : []
+  );
+  const [propertyStyle, setPropertyStyle] = useState<string[]>(
+    propertyStyleParam ? JSON.parse(propertyStyleParam) : []
+  );
+  const [leaseTerm, setLeaseTerm] = useState<string[]>(
+    leaseTermParam ? JSON.parse(leaseTermParam) : []
+  );
+  const [floors, setFloors] = useState<string[]>(
+    floorsParam ? JSON.parse(floorsParam) : []
+  );
+  const [noiseLevel, setNoiseLevel] = useState<string[]>(
+    noiseLevelParam ? JSON.parse(noiseLevelParam) : []
+  );
+  const [laundry, setLaundry] = useState<string[]>(
+    laundryParam ? JSON.parse(laundryParam) : []
+  );
+  const [securityFeatures, setSecurityFeatures] = useState<string[]>(
+    securityFeaturesParam ? JSON.parse(securityFeaturesParam) : []
+  );
+  const [amenities, setAmenities] = useState<string[]>(
+    amenitiesParam ? JSON.parse(amenitiesParam) : []
+  );
+  const [internet, setInternet] = useState<string[]>(
+    internetParam ? JSON.parse(internetParam) : []
+  );
+  const [heating, setHeating] = useState<string[]>(
+    heatingParam ? JSON.parse(heatingParam) : []
+  );
+  const [cooling, setCooling] = useState<string[]>(
+    coolingParam ? JSON.parse(coolingParam) : []
+  );
 
   const handleSearch = () => {
-    // i want to add all values to query
     const query = new URLSearchParams();
-    query.append("location", JSON.stringify(location));
-    query.append("radius", radius);
-    query.append("propertyType", JSON.stringify(propertyType));
-    query.append("min", min.toString());
-    query.append("max", max.toString());
-    query.append("beds", JSON.stringify(beds));
-    query.append("baths", JSON.stringify(baths));
-    query.append("views", JSON.stringify(views));
-    query.append("outdoor", JSON.stringify(outdoor));
-    query.append("propertyStyle", JSON.stringify(propertyStyle));
-    query.append("leaseTerm", JSON.stringify(leaseTerm));
-    query.append("floors", JSON.stringify(floors));
-    query.append("noiseLevel", JSON.stringify(noiseLevel));
-    query.append("laundry", JSON.stringify(laundry));
-    query.append("securityFeatures", JSON.stringify(securityFeatures));
-    query.append("amenities", JSON.stringify(amenities));
-    query.append("internet", JSON.stringify(internet));
-    query.append("heating", JSON.stringify(heating));
-    query.append("cooling", JSON.stringify(cooling));
+    if (dealType) query.append("dealType", dealType);
+    if (location.latitude && location.longitude && location.region)
+      query.append("location", JSON.stringify(location));
+    if (radius) query.append("radius", radius);
+    if (propertyType.length > 0)
+      query.append("propertyType", JSON.stringify(propertyType));
+    if (min) query.append("min", min.toString());
+    if (max) query.append("max", max.toString());
+    if (beds.length > 0) query.append("beds", JSON.stringify(beds));
+    if (baths.length > 0) query.append("baths", JSON.stringify(baths));
+    if (views.length > 0) query.append("views", JSON.stringify(views));
+    if (outdoor.length > 0) query.append("outdoor", JSON.stringify(outdoor));
+    if (propertyStyle.length > 0)
+      query.append("propertyStyle", JSON.stringify(propertyStyle));
+    if (leaseTerm.length > 0)
+      query.append("leaseTerm", JSON.stringify(leaseTerm));
+    if (floors.length > 0) query.append("floors", JSON.stringify(floors));
+    if (noiseLevel.length > 0)
+      query.append("noiseLevel", JSON.stringify(noiseLevel));
+    if (laundry.length > 0) query.append("laundry", JSON.stringify(laundry));
+    if (securityFeatures.length > 0)
+      query.append("securityFeatures", JSON.stringify(securityFeatures));
+    if (amenities.length > 0)
+      query.append("amenities", JSON.stringify(amenities));
+    if (internet.length > 0) query.append("internet", JSON.stringify(internet));
+    if (heating.length > 0) query.append("heating", JSON.stringify(heating));
+    if (cooling.length > 0) query.append("cooling", JSON.stringify(cooling));
     router.push(`/properties?${query.toString()}`);
   };
 

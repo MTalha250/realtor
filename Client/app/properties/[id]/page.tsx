@@ -39,7 +39,7 @@ const page = () => {
     noiseLevel: "Low",
     laundry: "In Unit",
     securityFeatures: ["Alarm", "Doorman"],
-    amenities: ["Air Conditioning", "Dishwasher"],
+    amenities: ["Gym", "Swimming Pool", "Garage", "Fireplace"],
     internet: "Fiber",
     heating: ["Central"],
     cooling: ["Central"],
@@ -47,7 +47,6 @@ const page = () => {
     likes: 50,
     video:
       "https://res.cloudinary.com/dewqsghdi/video/upload/v1732637542/A_short_placeholder_video_ysw7yh.mp4",
-    characteristics: ["Gym", "Swimming Pool", "Garage", "Fireplace"],
     createdAt: "2021-07-01T00:00:00.000Z",
     updatedAt: "2021-07-01T00:00:00.000Z",
   });
@@ -72,7 +71,7 @@ const page = () => {
         longitude={property.location.longitude}
         region={property.location.region}
       />
-      <Characteristics characteristics={property.characteristics} />
+      <Characteristics characteristics={property.amenities} />
       {/* <About property={property} /> */}
       <Similar />
     </div>
