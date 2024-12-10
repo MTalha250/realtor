@@ -7,6 +7,7 @@ use App\Models\PropertyImage;
 use App\Models\PropertyLocation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class PropertyController extends Controller
 {
@@ -167,4 +168,88 @@ class PropertyController extends Controller
 
         return response()->json(['message' => 'Property deleted successfully.']);
     }
+
+
+    public function search(Request $request)
+    {
+        $query = Property::with(['images', 'location']);
+        
+        $location = $request->query('location') ? json_decode($request->query('location'), true) : null;
+        $radius = $request->query('radius', 10);
+    
+        if ($location && isset($location['latitude']) && isset($location['longitude'])) {
+            $latitude = $location['latitude'];
+            $longitude = $location['longitude'];
+    
+            $query->whereHas('location', function ($subQuery) use ($latitude, $longitude, $radius) {
+                $subQuery->whereRaw("
+                    ST_Distance_Sphere(
+                        point(longitude, latitude),
+                        point(?, ?)
+                    ) <= ?", [$longitude, $latitude, $radius * 1000]);
+            });
+        }
+    
+        $filters = [
+            'beds' => 'bedrooms',
+            'baths' => 'bathrooms',
+            'views' => 'view',
+            'outdoor' => 'outdoor',
+            'propertyStyle' => 'propertyStyle',
+            'leaseTerm' => 'leaseTerm',
+            'floors' => 'floors',
+            'noiseLevel' => 'noiseLevel',
+            'laundry' => 'laundry',
+            'amenities' => 'amenities',
+            'internet' => 'internet',
+            'heating' => 'heating',
+            'cooling' => 'cooling',
+        ];
+    
+        if ($request->has('propertyType')) {
+            $propertyTypes = json_decode($request->query('propertyType'), true);
+    
+            if (is_array($propertyTypes) && count($propertyTypes) > 0) {
+                $query->where(function ($subQuery) use ($propertyTypes) {
+                    foreach ($propertyTypes as $type) {
+                        $subQuery->orWhere('propertyType', 'LIKE', '%' . $type . '%');
+                    }
+                });
+            }
+        }
+    
+        foreach ($filters as $param => $column) {
+            if ($request->has($param)) {
+                $values = json_decode($request->query($param), true);
+    
+                if (is_array($values) && count($values) > 0) {
+                    $query->where(function ($subQuery) use ($column, $values) {
+                        foreach ($values as $value) {
+                            $subQuery->orWhere($column, 'LIKE', '%' . $value . '%');
+                        }
+                    });
+                }
+            }
+        }
+    
+        $minPrice = $request->query('min', 0);
+        $maxPrice = $request->query('max', PHP_INT_MAX);
+        $query->whereBetween('price', [(float)$minPrice, (float)$maxPrice]);
+    
+        $fields = $request->query('fields', '*');
+        $fieldsArray = $fields === '*' ? ['*'] : explode(',', $fields);
+        $query->select($fieldsArray);
+    
+        \Log::info('Constructed Query:', [$query->toSql(), $query->getBindings()]);
+    
+        $properties = $query->get();
+    
+        return response()->json([
+            'data' => $properties->map(function ($property) {
+                return $this->transformPropertyResponse($property);
+            }),
+        ]);
+    }
+        
+        
 }
