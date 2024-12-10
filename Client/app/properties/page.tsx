@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 const Properties = () => {
   const searchParams = useSearchParams();
   const dealType = searchParams.get("dealType");
+  const location = searchParams.get("location");
+  const parsedLocation = location ? JSON.parse(location) : null;
   const isLoaded = useGoogleMapsStore((state) => state.isLoaded);
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState("grid");
@@ -175,16 +177,18 @@ const Properties = () => {
   ]);
 
   const center = {
-    lat:
-      properties.reduce(
-        (acc, property) => acc + (property.location?.latitude || 0),
-        0
-      ) / properties.length,
-    lng:
-      properties.reduce(
-        (acc, property) => acc + (property.location?.longitude || 0),
-        0
-      ) / properties.length,
+    lat: parsedLocation
+      ? parsedLocation.latitude
+      : properties.reduce(
+          (acc, property) => acc + (property.location?.latitude || 0),
+          0
+        ) / properties.length,
+    lng: parsedLocation
+      ? parsedLocation.longitude
+      : properties.reduce(
+          (acc, property) => acc + (property.location?.longitude || 0),
+          0
+        ) / properties.length,
   };
 
   return (

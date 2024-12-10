@@ -32,7 +32,6 @@ type Property = {
   priceType: string;
   views: number;
   likes: number;
-  characteristics: string[];
   createdAt: string;
   updatedAt: string;
 };
