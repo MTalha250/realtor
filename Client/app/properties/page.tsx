@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import img from "@/assets/product.jpg";
 import { useSearchParams } from "next/navigation";
 import SearchCard from "@/components/common/searchCard";
@@ -9,12 +9,17 @@ import GridFour from "@/components/grids/gridFour";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
 import { useRouter } from "next/navigation";
-
+import {
+  buildSearchQuery,
+  parseSearchParams,
+} from "@/components/common/searchCard/utility";
+import { SearchFilters } from "@/types/searchTypes";
 const Properties = () => {
   const searchParams = useSearchParams();
-  const dealType = searchParams.get("dealType");
-  const location = searchParams.get("location");
-  const parsedLocation = location ? JSON.parse(location) : null;
+  const filters = useMemo(
+    () => parseSearchParams(searchParams),
+    [searchParams]
+  );
   const isLoaded = useGoogleMapsStore((state) => state.isLoaded);
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState("grid");
@@ -177,14 +182,14 @@ const Properties = () => {
   ]);
 
   const center = {
-    lat: parsedLocation
-      ? parsedLocation.latitude
+    lat: filters.location?.latitude
+      ? filters.location.latitude
       : properties.reduce(
           (acc, property) => acc + (property.location?.latitude || 0),
           0
         ) / properties.length,
-    lng: parsedLocation
-      ? parsedLocation.longitude
+    lng: filters.location?.longitude
+      ? filters.location.longitude
       : properties.reduce(
           (acc, property) => acc + (property.location?.longitude || 0),
           0
@@ -230,12 +235,17 @@ const Properties = () => {
           bg-secondary2 text-white py-2 px-4
           absolute bottom-5 left-1/2 -translate-x-1/2 text-4xl font-slab"
           >
-            Properties for {dealType == "sale" ? "Sale" : "Rent"}
+            Properties for {filters.dealType == "sale" ? "Sale" : "Rent"}
           </h1>
         </div>
       )}
       <div className="container flex justify-center py-10">
-        <SearchCard />
+        <SearchCard
+          onSearchComplete={(filters: SearchFilters) => {
+            const query = buildSearchQuery(filters);
+            console.log(query.toString());
+          }}
+        />
       </div>
       <div className="container">
         <div className="w-full relative h-5">

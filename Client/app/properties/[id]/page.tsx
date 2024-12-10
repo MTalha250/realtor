@@ -28,7 +28,6 @@ const page = () => {
       region: "El Rodadero, Santa Marta",
     },
     propertyType: "House",
-    category: "Residential",
     dealType: "Sale",
     condition: "New",
     view: ["City", "Mountain"],
@@ -47,8 +46,8 @@ const page = () => {
     likes: 50,
     video:
       "https://res.cloudinary.com/dewqsghdi/video/upload/v1732637542/A_short_placeholder_video_ysw7yh.mp4",
-    createdAt: "2021-07-01T00:00:00.000Z",
-    updatedAt: "2021-07-01T00:00:00.000Z",
+    created_at: "2021-07-01T00:00:00.000Z",
+    updated_at: "2021-07-01T00:00:00.000Z",
   });
 
   return (

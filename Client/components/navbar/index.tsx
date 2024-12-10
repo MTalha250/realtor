@@ -76,9 +76,12 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-          <Button variant="primary" className="px-8 text-lg">
-            Login
-          </Button>
+          <Link
+            href="/contact"
+            className="px-8 text-lg bg-secondary hover:bg-secondary2 rounded-md py-2 transition duration-300"
+          >
+            Contact Us
+          </Link>
         </div>
       </div>
     </div>

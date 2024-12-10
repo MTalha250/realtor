@@ -12,7 +12,6 @@ type Property = {
   bathrooms: number;
   area: number;
   propertyType: string;
-  category: string;
   dealType: string;
   view: string[];
   outdoor: string[];
@@ -32,8 +31,8 @@ type Property = {
   priceType: string;
   views: number;
   likes: number;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 };
 
 type Blog = {
@@ -46,6 +45,6 @@ type Blog = {
   category: string;
   content: string;
   timeToRead: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 };

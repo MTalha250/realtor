@@ -15,7 +15,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "sale",
+      dealType: "sale",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "rent",
+      dealType: "rent",
     },
     {
       id: 3,
@@ -31,7 +31,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "sale",
+      dealType: "sale",
     },
     {
       id: 4,
@@ -39,7 +39,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "rent",
+      dealType: "rent",
     },
     {
       id: 5,
@@ -47,7 +47,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "sale",
+      dealType: "sale",
     },
     {
       id: 6,
@@ -55,7 +55,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "rent",
+      dealType: "rent",
     },
     {
       id: 7,
@@ -63,7 +63,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "sale",
+      dealType: "sale",
     },
     {
       id: 8,
@@ -71,7 +71,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "rent",
+      dealType: "rent",
     },
     {
       id: 9,
@@ -79,7 +79,7 @@ const AllProperties = () => {
       title: "Georgia Town Park",
       description:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      category: "rent",
+      dealType: "rent",
     },
   ]);
   return (
