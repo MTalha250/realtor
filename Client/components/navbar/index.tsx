@@ -30,20 +30,20 @@ const Navbar = () => {
         (scroll ? "bg-[#f1f1f1]" : "bg-background")
       }
     >
-      <div className="flex justify-between items-center py-4 container">
+      <div className="flex justify-between items-center py-4 px-5 sm:px-8 lg:px-16 whitespace-nowrap">
         <Link href="/">
           <img
             src={logo.src}
             alt="Logo"
-            className="w-32 hover:scale-105 transition duration-300"
+            className="w-28 lg:w-32 hover:scale-105 transition duration-300"
           />
         </Link>
-        <div className="hidden md:flex items-center gap-5">
-          <ul className="font-slab flex divide-x divide-secondary text-primary text-lg">
+        <div className="hidden md:flex items-center lg:gap-5">
+          <ul className="font-slab flex divide-x divide-secondary text-primary text-sm lg:text-lg">
             {navLinks.map((link, index) => (
               <li
                 key={link.title}
-                className="px-4 relative"
+                className="px-2 lg:px-4 relative"
                 onMouseEnter={() => setActiveDropdown(index)}
                 onMouseLeave={() => setActiveDropdown(-1)}
               >
@@ -78,7 +78,7 @@ const Navbar = () => {
           </ul>
           <Link
             href="/contact"
-            className="px-8 text-lg bg-secondary hover:bg-secondary2 rounded-md py-2 transition duration-300"
+            className="px-4 lg:px-8 lg:text-lg bg-secondary hover:bg-secondary2 rounded-md py-2 transition duration-300"
           >
             Contact Us
           </Link>

@@ -199,7 +199,7 @@ const Properties = () => {
   return (
     <div className="pt-20">
       {isLoaded && (
-        <div className="mt-2 relative">
+        <div className="mt-1 md:mt-2 relative">
           <GoogleMap
             mapContainerStyle={{
               width: "100%",
@@ -226,14 +226,17 @@ const Properties = () => {
             onClick={() => {
               map?.panTo(center);
             }}
-            className="group font-medium absolute bottom-6 right-14 border shadow bg-white text-black rounded-none py-2 px-4"
+            className="group font-medium absolute top-14 right-[0.6rem] border shadow bg-white text-black rounded-none p-2"
           >
-            <Target className="text-gray-500 group-hover:text-black" />
+            <Target
+              className="text-gray-500 group-hover:text-black"
+              size={22}
+            />
           </button>
           <h1
             className="
           bg-secondary2 text-white py-2 px-4
-          absolute bottom-5 left-1/2 -translate-x-1/2 text-4xl font-slab"
+          absolute bottom-5 left-1/2 -translate-x-1/2  text-2xl sm:text-3xl md:text-4xl font-slab text-center"
           >
             Properties for {filters.dealType == "sale" ? "Sale" : "Rent"}
           </h1>
@@ -248,7 +251,7 @@ const Properties = () => {
         />
       </div>
       <div className="container">
-        <div className="w-full relative h-5">
+        <div className="hidden md:block w-full relative h-5">
           <div className="flex gap-3 absolute right-0">
             <button onClick={() => setView("grid")}>
               <LayoutGrid size={30} className="text-primary" />

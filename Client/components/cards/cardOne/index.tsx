@@ -8,7 +8,10 @@ interface Props {
 
 const CardOne = ({ product }: Props) => {
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-lg hover:scale-105 transition duration-300">
+    <Link
+      href={`/properties/${product.id}`}
+      className="bg-white rounded-2xl p-6 xl:p-8 shadow-lg hover:scale-105 transition duration-300"
+    >
       <img
         src={product.images?.[0]}
         alt={product.title}
@@ -20,12 +23,9 @@ const CardOne = ({ product }: Props) => {
         <p className="text-xl font-semibold">
           ${product.price?.toLocaleString()}
         </p>
-        <Link
-          href={`/properties/${product.id}`}
-          className="bg-primary text-white p-2 rounded-md text-sm hover:bg-primary3 transition duration-300"
-        >
+        <button className="hidden sm:inline-block bg-primary text-white p-2 rounded-md text-sm hover:bg-primary3 transition duration-300">
           View More{" "}
-        </Link>
+        </button>
       </div>
       <div className="flex justify-between text-[10px]">
         <div className="flex items-center gap-1">
@@ -41,7 +41,7 @@ const CardOne = ({ product }: Props) => {
           <span>{product.area} sqft</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

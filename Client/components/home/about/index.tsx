@@ -9,14 +9,14 @@ import {
 
 const About = () => {
   return (
-    <div className="container py-20">
+    <div className="container py-10 md:py-20">
       <div className="mb-10">
-        <div className="flex justify-between mb-20">
-          <h1 className="text-5xl text-primary font-slab font-medium max-w-sm">
+        <div className="flex flex-col md:flex-row justify-between mb-20">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary font-slab font-medium max-w-sm">
             Complete Solution to Your Property Needs
           </h1>
-          <div className="w-1/2">
-            <p className="mb-8 text-lg">
+          <div className="w-full md:w-1/2">
+            <p className="mt-8 md:mt-0 mb-8 text-lg">
               Discover an extensive range of premium properties designed to
               match your unique lifestyle and budget. Whether you're looking for
               a cozy starter home, a luxurious retreat, or the perfect family
@@ -34,27 +34,50 @@ const About = () => {
         </div>
         <ResizablePanelGroup
           direction="horizontal"
-          className="border-none gap-4"
+          className="border-none gap-2 md:gap-4 flex-col md:flex-row"
         >
-          <ResizablePanel defaultSize={50}>
-            <img src={img.src} alt="" className="h-[50vh] rounded-2xl" />
+          {/* Left Panel */}
+          <ResizablePanel defaultSize={100} className="md:defaultSize-[50]">
+            <img
+              src={img.src}
+              alt="Panel Image 1"
+              className="h-[40vh] md:h-[50vh] w-full object-cover rounded-2xl"
+            />
           </ResizablePanel>
-          <ResizableHandle />
-          <ResizablePanel defaultSize={50}>
-            <ResizablePanelGroup direction="vertical" className="gap-4">
-              <ResizablePanel defaultSize={60}>
+
+          {/* Horizontal Handle */}
+          <ResizableHandle className="hidden md:block" />
+
+          {/* Right Panel */}
+          <ResizablePanel defaultSize={100} className="md:defaultSize-[50]">
+            <ResizablePanelGroup
+              direction="vertical"
+              className="gap-2 md:gap-4"
+            >
+              {/* Top Right Panel */}
+              <ResizablePanel
+                defaultSize={100}
+                className="md:defaultSize-[60] rounded-2xl"
+              >
                 <img
                   src={img.src}
-                  alt=""
-                  className="h-full w-full object-cover rounded-2xl"
+                  alt="Panel Image 2"
+                  className="h-[40vh] md:h-full w-full object-cover"
                 />
               </ResizablePanel>
-              <ResizableHandle />
-              <ResizablePanel defaultSize={40}>
+
+              {/* Vertical Handle */}
+              <ResizableHandle className="hidden md:block" />
+
+              {/* Bottom Right Panel */}
+              <ResizablePanel
+                defaultSize={100}
+                className="md:defaultSize-[40] rounded-2xl"
+              >
                 <img
                   src={img.src}
-                  alt=""
-                  className="h-full w-full object-cover rounded-2xl"
+                  alt="Panel Image 3"
+                  className="h-[40vh] md:h-full w-full object-cover"
                 />
               </ResizablePanel>
             </ResizablePanelGroup>
@@ -63,7 +86,7 @@ const About = () => {
       </div>
       <div>
         <h1 className="text-center font-slab text-4xl mb-10">Why Choose Us</h1>
-        <div className="flex justify-between gap-10">
+        <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>
             <img
               src={img.src}

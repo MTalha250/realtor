@@ -33,10 +33,12 @@ const Blogs = () => {
   return (
     <div className="container">
       <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-slab">Latest Updates</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-slab">
+          Latest Updates
+        </h1>
         <Link
           href="/blogs"
-          className="bg-secondary py-2 text-lg px-10 text-white rounded-md hover:bg-secondary2 transition duration-300"
+          className="bg-secondary py-2 text-lg px-8 whitespace-nowrap text-white rounded-md hover:bg-secondary2 transition duration-300"
         >
           View All
         </Link>

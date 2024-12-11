@@ -12,9 +12,15 @@ export default {
       container: {
         center: true,
         padding: {
-          DEFAULT: "2rem",
+          DEFAULT: "1.5rem",
+          sm: "1rem",
+          md: "2rem",
+          lg: "3rem",
+          xl: "4rem",
+          "2xl": "5rem",
         },
       },
+
       fontFamily: {
         slab: ["Montagu Slab", "sans-serif"],
         sans: ["Open Sans", "sans-serif"],

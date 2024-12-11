@@ -79,14 +79,16 @@ const MostViewed = () => {
 
   useState;
   return (
-    <div className="container py-20">
-      <div className="w-full bg-[#F1F1F1] rounded-3xl shadow py-10 px-20">
-        <h1 className="text-4xl text-center font-slab mb-4">Most Viewed</h1>
+    <div className="container py-10 md:py-20">
+      <div className="w-full bg-[#F1F1F1] rounded-3xl shadow py-10 px-5 md:px-10 lg:px-8 xl:px-20">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl text-center font-slab mb-4">
+          Most Viewed
+        </h1>
         <p className="text-center mb-8">
           We offer a widest section of the newest properties ready for you to
           explore
         </p>
-        <div className="w-full bg-white flex justify-between items-center p-5 rounded-2xl">
+        <div className="w-full bg-white hidden lg:flex justify-between items-center p-5 rounded-2xl">
           <div className="flex gap-5 items-center">
             <Button
               className={

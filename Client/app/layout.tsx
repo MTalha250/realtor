@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { useEffect } from "react";
 import { useGoogleMapsApi } from "@/hooks/useGoogleMapsApi";
 import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
+import WhatsApp from "@/components/WhatsApp";
 
 export default function RootLayout({
   children,
@@ -34,6 +35,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <Toaster />
+          <WhatsApp />
         </Suspense>
       </body>
     </html>

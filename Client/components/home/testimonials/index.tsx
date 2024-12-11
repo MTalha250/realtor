@@ -29,11 +29,11 @@ const TestimonialData = [
 ];
 const Testimonials = () => {
   return (
-    <div className="container py-20">
-      <h1 className="text-center text-4xl font-slab mb-10">
+    <div className="container py-10 md:py-20">
+      <h1 className="text-center text-3xl md:text-4xl  font-slab mb-10">
         What They Say About Us
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-5 lg:gap-10">
         {TestimonialData.map((item, index) => (
           <TestimonialCard
             key={index}

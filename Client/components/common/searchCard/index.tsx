@@ -1,5 +1,11 @@
 "use client";
-import React, { useRef, useState, useCallback, useMemo } from "react";
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -45,6 +51,7 @@ import {
   parseSearchParams,
   buildSearchQuery,
 } from "@/components/common/searchCard/utility";
+import toast from "react-hot-toast";
 
 // Reusable Filter Button Component
 const FilterButton: React.FC<{
@@ -72,6 +79,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
   const searchParams = useSearchParams();
   const isLoaded = useGoogleMapsStore((state) => state.isLoaded);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   // Parse initial search params
   const initialFilters = useMemo(
@@ -86,6 +94,11 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
       region: "",
     }
   );
+  useEffect(() => {
+    if (inputRef.current && location.region) {
+      inputRef.current.value = location.region;
+    }
+  }, [location.region]);
 
   const [filters, setFilters] = useState<SearchFilters>({
     dealType: initialFilters.dealType || "",
@@ -123,42 +136,19 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
         const lat = place.geometry.location?.lat();
         const lng = place.geometry.location?.lng();
 
-        const addressComponents = place.address_components;
-
-        const area = addressComponents?.find(
-          (component) =>
-            component.types.includes("sublocality") ||
-            component.types.includes("locality")
-        )?.long_name;
-
-        const city = addressComponents?.find(
-          (component) =>
-            component.types.includes("locality") ||
-            component.types.includes("administrative_area_level_2")
-        )?.long_name;
-
-        const country = addressComponents?.find((component) =>
-          component.types.includes("country")
-        )?.long_name;
-
-        const region = `${area || ""}, ${city || ""}, ${country || ""}`
-          .replace(/, , /g, ", ")
-          .replace(/, $/, "");
-
         if (lat !== undefined && lng !== undefined) {
           const newLocation = {
             latitude: lat,
             longitude: lng,
-            region,
+            region: place.formatted_address || "",
           };
-
           setLocation(newLocation);
           setFilters((prev) => ({ ...prev, location: newLocation }));
         }
       }
     } catch (error) {
       console.error("Error selecting place:", error);
-      // Consider adding user-friendly error toast/notification
+      toast.error("Error selecting place. Please try again.");
     }
   }, []);
 
@@ -205,7 +195,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
 
   return (
     <div className="bg-white p-10 flex justify-between items-center w-full shadow-lg">
-      <div className="flex gap-5 items-end w-full">
+      <div className="flex flex-col md:flex-row gap-5 items-end w-full">
         {/* Location Autocomplete */}
         <label className="w-full">
           <p className="py-2">Location</p>
@@ -214,6 +204,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
             onPlaceChanged={handlePlaceChanged}
           >
             <Input
+              ref={inputRef}
               placeholder="Search by location"
               aria-label="Location search"
             />
@@ -263,7 +254,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
               ))}
             </SelectContent>
           </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
+          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 whitespace-nowrap">
             {filters.propertyType.length > 0
               ? filters.propertyType.join(", ").slice(0, 16) +
                 (filters.propertyType.length > 1 ? "..." : "")

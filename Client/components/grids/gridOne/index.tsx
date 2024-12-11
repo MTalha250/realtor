@@ -9,13 +9,13 @@ interface Props {
 
 const GridOne = ({ products, loading }: Props) => {
   return loading ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10 min-h-screen">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-10 my-10 min-h-screen">
       {[...Array(6)].map((_, index) => (
         <Skeleton key={index} className="rounded-2xl" />
       ))}
     </div>
   ) : products.length > 0 ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10 min-h-screen">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-10 my-10 min-h-screen">
       {products.map((product) => (
         <CardOne key={product.id} product={product} />
       ))}
