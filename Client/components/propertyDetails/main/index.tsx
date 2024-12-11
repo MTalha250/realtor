@@ -22,15 +22,15 @@ const Main = ({ property }: Props) => {
         <p className="mb-5">{property.description}</p>
         <p className="mb-5 text-xl font-light">
           Last Updated:{" "}
-          {new Date(property.updatedAt).toLocaleDateString() ===
+          {new Date(property.updated_at).toLocaleDateString() ===
           new Date().toLocaleDateString()
             ? "Today"
-            : new Date(property.updatedAt).toLocaleDateString() ===
+            : new Date(property.updated_at).toLocaleDateString() ===
               new Date(
                 new Date().setDate(new Date().getDate() - 1)
               ).toLocaleDateString()
             ? "Yesterday"
-            : new Date(property.updatedAt).toLocaleDateString()}{" "}
+            : new Date(property.updated_at).toLocaleDateString()}{" "}
           . Views {property.views} . Likes {property.likes}
         </p>
       </div>
