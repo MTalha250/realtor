@@ -250,6 +250,21 @@ class PropertyController extends Controller
             }),
         ]);
     }
-        
-        
+
+    public function incrementViews($id)
+{
+    $property = Property::findOrFail($id);
+    $property->increment('views');
+    
+    return response()->json(['message' => 'Views incremented successfully.', 'views' => $property->views]);
+}
+
+public function incrementLikes($id)
+{
+    $property = Property::findOrFail($id);
+    $property->increment('likes');
+    
+    return response()->json(['message' => 'Likes incremented successfully.', 'likes' => $property->likes]);
+}
+
 }
