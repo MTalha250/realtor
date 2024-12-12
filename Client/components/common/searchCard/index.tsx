@@ -195,440 +195,449 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
 
   return (
     <div className="bg-white p-10 flex justify-between items-center w-full shadow-lg">
-      <div className="flex flex-col md:flex-row gap-5 items-end w-full">
-        {/* Location Autocomplete */}
-        <label className="w-full">
-          <p className="py-2">Location</p>
-          <Autocomplete
-            onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
-            onPlaceChanged={handlePlaceChanged}
-          >
-            <Input
-              ref={inputRef}
-              placeholder="Search by location"
-              aria-label="Location search"
-            />
-          </Autocomplete>
-        </label>
+      <div className="flex flex-col lg:flex-row gap-5 items-end w-full">
+        <div className="w-full flex flex-col sm:flex-row gap-5 whitespace-nowrap">
+          <label className="w-full">
+            <p className="py-2">Location</p>
+            <Autocomplete
+              onLoad={(autocomplete) =>
+                (autocompleteRef.current = autocomplete)
+              }
+              onPlaceChanged={handlePlaceChanged}
+            >
+              <Input
+                ref={inputRef}
+                placeholder="Search by location"
+                aria-label="Location search"
+              />
+            </Autocomplete>
+          </label>
 
-        {/* Radius Select */}
-        <label className="w-full">
-          <Select
-            onValueChange={(e) => updateFilter("radius", e)}
-            value={filters.radius}
-          >
-            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
-              Radius
-            </SelectTrigger>
-            <SelectContent>
-              {RADIUS_OPTIONS.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
-            {filters.radius ? filters.radius : "Select"} miles
-          </p>
-        </label>
+          {/* Radius Select */}
+          <label className="w-full">
+            <Select
+              onValueChange={(e) => updateFilter("radius", e)}
+              value={filters.radius}
+            >
+              <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
+                Radius
+              </SelectTrigger>
+              <SelectContent>
+                {RADIUS_OPTIONS.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
+              {filters.radius ? filters.radius : "Select"} miles
+            </p>
+          </label>
+        </div>
+        <div className="w-full flex gap-5 flex-col sm:flex-row">
+          <label className="w-full">
+            <Select
+              onValueChange={(e) =>
+                updateFilter("propertyType", [
+                  e as (typeof PROPERTY_TYPES)[number],
+                ])
+              }
+              value={filters.propertyType[0]}
+            >
+              <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
+                Property Type
+              </SelectTrigger>
+              <SelectContent>
+                {PROPERTY_TYPES.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 whitespace-nowrap">
+              {filters.propertyType.length > 0
+                ? filters.propertyType.join(", ").slice(0, 16) +
+                  (filters.propertyType.length > 1 ? "..." : "")
+                : "Select Property Type"}
+            </p>
+          </label>
 
-        {/* Property Type Select */}
-        <label className="w-full">
-          <Select
-            onValueChange={(e) =>
-              updateFilter("propertyType", [
-                e as (typeof PROPERTY_TYPES)[number],
-              ])
-            }
-            value={filters.propertyType[0]}
-          >
-            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
-              Property Type
-            </SelectTrigger>
-            <SelectContent>
-              {PROPERTY_TYPES.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 whitespace-nowrap">
-            {filters.propertyType.length > 0
-              ? filters.propertyType.join(", ").slice(0, 16) +
-                (filters.propertyType.length > 1 ? "..." : "")
-              : "Select Property Type"}
-          </p>
-        </label>
-
-        {/* Price Range Select */}
-        <label className="w-full">
-          <Select
-            onValueChange={(e) => {
-              const [min, max] = e.split("-").map(Number);
-              updateFilter("minPrice", min);
-              updateFilter("maxPrice", max);
-            }}
-            value={`${filters.minPrice}-${filters.maxPrice}`}
-          >
-            <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">
-              Price Range
-            </SelectTrigger>
-            <SelectContent>
-              {PRICE_RANGES.map((range) => (
-                <SelectItem key={range.value} value={range.value}>
-                  {range.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500">
-            ${filters.minPrice}k - ${filters.maxPrice}k
-          </p>
-        </label>
-
-        {/* Advance Filters Sheet */}
-        <Sheet>
-          <SheetTrigger className="w-fit bg-primary rounded-md border border-neutral-200 text-white px-3 py-2 whitespace-nowrap hover:bg-primary3 transition duration-300">
-            Advance Filters
-          </SheetTrigger>
-          <SheetContent>
-            <SheetTitle className="mb-5 text-center text-secondary font-bold text-3xl">
+          {/* Price Range Select */}
+          <label className="w-full">
+            <Select
+              onValueChange={(e) => {
+                const [min, max] = e.split("-").map(Number);
+                updateFilter("minPrice", min);
+                updateFilter("maxPrice", max);
+              }}
+              value={`${filters.minPrice}-${filters.maxPrice}`}
+            >
+              <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base whitespace-nowrap">
+                Price Range
+              </SelectTrigger>
+              <SelectContent>
+                {PRICE_RANGES.map((range) => (
+                  <SelectItem key={range.value} value={range.value}>
+                    {range.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="rounded-md border border-neutral-200 bg-white px-3 py-2 text-neutral-500 whitespace-nowrap">
+              ${filters.minPrice}k - ${filters.maxPrice}k
+            </p>
+          </label>
+        </div>
+        <div className="flex gap-5 w-full flex-col sm:flex-row">
+          <Sheet>
+            <SheetTrigger className="w-full bg-primary rounded-md border border-neutral-200 text-white px-3 py-2 whitespace-nowrap hover:bg-primary3 transition duration-300">
               Advance Filters
-            </SheetTitle>
-            <div className="flex flex-col h-full gap-3 overflow-y-scroll scrollbar scrollbar-none pb-12">
-              {/* Property Type Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary">Property Type</p>
-                <div className="flex flex-wrap gap-3">
-                  {PROPERTY_TYPES.map((type) => (
-                    <FilterButton
-                      key={type}
-                      label={type}
-                      isSelected={filters.propertyType.includes(type)}
-                      onClick={() => toggleArrayFilter("propertyType", type)}
-                    />
-                  ))}
+            </SheetTrigger>
+            <SheetContent>
+              <SheetTitle className="mb-5 text-center text-secondary font-bold text-3xl">
+                Advance Filters
+              </SheetTitle>
+              <div className="flex flex-col h-full gap-3 overflow-y-scroll scrollbar scrollbar-none pb-12">
+                {/* Property Type Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary">
+                    Property Type
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {PROPERTY_TYPES.map((type) => (
+                      <FilterButton
+                        key={type}
+                        label={type}
+                        isSelected={filters.propertyType.includes(type)}
+                        onClick={() => toggleArrayFilter("propertyType", type)}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              {/* Price Range Filter */}
-              <div>
-                <p className="mb-2 py-2 font-semibold text-primary text-base">
-                  Price Range (in $k)
-                </p>
-                <div id="range" className="mb-4">
-                  <RangeSlider
-                    min={50}
-                    max={500}
-                    step={1}
-                    value={[filters.minPrice, filters.maxPrice]}
-                    onInput={(value: [number, number]) => {
-                      updateFilter("minPrice", value[0]);
-                      updateFilter("maxPrice", value[1]);
+                {/* Price Range Filter */}
+                <div>
+                  <p className="mb-2 py-2 font-semibold text-primary text-base">
+                    Price Range (in $k)
+                  </p>
+                  <div id="range" className="mb-4">
+                    <RangeSlider
+                      min={50}
+                      max={500}
+                      step={1}
+                      value={[filters.minPrice, filters.maxPrice]}
+                      onInput={(value: [number, number]) => {
+                        updateFilter("minPrice", value[0]);
+                        updateFilter("maxPrice", value[1]);
+                      }}
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <input
+                      type="number"
+                      placeholder="Min"
+                      value={filters.minPrice}
+                      onChange={(e) => {
+                        const value = +e.target.value;
+                        if (value <= filters.maxPrice && value >= 50) {
+                          updateFilter("minPrice", value);
+                        }
+                      }}
+                      className="border border-black rounded-none w-1/2 p-2 outline-none placeholder:font-light font-light"
+                    />
+                    <span className="mx-2">-</span>
+                    <input
+                      type="number"
+                      placeholder="Max"
+                      value={filters.maxPrice}
+                      onChange={(e) => {
+                        const value = +e.target.value;
+                        if (value >= filters.minPrice && value <= 500) {
+                          updateFilter("maxPrice", value);
+                        }
+                      }}
+                      className="border border-black rounded-none w-1/2 p-2 outline-none placeholder:font-light font-light"
+                    />
+                  </div>
+                </div>
+                {/* Bedrooms Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Bedrooms
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {BEDROOM_OPTIONS.map((bed) => (
+                      <FilterButton
+                        key={bed}
+                        label={bed}
+                        isSelected={filters.beds.includes(bed)}
+                        onClick={() => toggleArrayFilter("beds", bed)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Bathrooms Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Bathrooms
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {BATHROOM_OPTIONS.map((bath) => (
+                      <FilterButton
+                        key={bath}
+                        label={bath}
+                        isSelected={filters.baths.includes(bath)}
+                        onClick={() => toggleArrayFilter("baths", bath)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Views Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Views
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {VIEW_OPTIONS.map((view) => (
+                      <FilterButton
+                        key={view}
+                        label={view}
+                        isSelected={filters.views.includes(view)}
+                        onClick={() => toggleArrayFilter("views", view)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Outdoor Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Outdoor
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {OUTDOOR_OPTIONS.map((out) => (
+                      <FilterButton
+                        key={out}
+                        label={out}
+                        isSelected={filters.outdoor.includes(out)}
+                        onClick={() => toggleArrayFilter("outdoor", out)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Property Style Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Property Style
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {PROPERTY_STYLES.map((style) => (
+                      <FilterButton
+                        key={style}
+                        label={style}
+                        isSelected={filters.propertyStyle.includes(style)}
+                        onClick={() =>
+                          toggleArrayFilter("propertyStyle", style)
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Lease Term Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Lease Term
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {LEASE_TERMS.map((term) => (
+                      <FilterButton
+                        key={term}
+                        label={term}
+                        isSelected={filters.leaseTerm.includes(term)}
+                        onClick={() => toggleArrayFilter("leaseTerm", term)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Floors Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Floors
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {FLOOR_OPTIONS.map((floor) => (
+                      <FilterButton
+                        key={floor}
+                        label={floor}
+                        isSelected={filters.floors.includes(floor)}
+                        onClick={() => toggleArrayFilter("floors", floor)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Noise Level Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Noise Level
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {NOISE_LEVELS.map((noise) => (
+                      <FilterButton
+                        key={noise}
+                        label={noise}
+                        isSelected={filters.noiseLevel.includes(noise)}
+                        onClick={() => toggleArrayFilter("noiseLevel", noise)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Laundry Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Laundry
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {LAUNDRY_OPTIONS.map((laund) => (
+                      <FilterButton
+                        key={laund}
+                        label={laund}
+                        isSelected={filters.laundry.includes(laund)}
+                        onClick={() => toggleArrayFilter("laundry", laund)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Security Features Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Security Features
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {SECURITY_FEATURES.map((sec) => (
+                      <FilterButton
+                        key={sec}
+                        label={sec}
+                        isSelected={filters.securityFeatures.includes(sec)}
+                        onClick={() =>
+                          toggleArrayFilter("securityFeatures", sec)
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Amenities Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Amenities
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {AMENITIES.map((amen) => (
+                      <FilterButton
+                        key={amen}
+                        label={amen}
+                        isSelected={filters.amenities.includes(amen)}
+                        onClick={() => toggleArrayFilter("amenities", amen)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Internet Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Internet
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {INTERNET_TYPES.map((net) => (
+                      <FilterButton
+                        key={net}
+                        label={net}
+                        isSelected={filters.internet.includes(net)}
+                        onClick={() => toggleArrayFilter("internet", net)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Heating Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Heating
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {HEATING_TYPES.map((heat) => (
+                      <FilterButton
+                        key={heat}
+                        label={heat}
+                        isSelected={filters.heating.includes(heat)}
+                        onClick={() => toggleArrayFilter("heating", heat)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Cooling Filter */}
+                <div>
+                  <p className="py-2 font-semibold text-primary text-base">
+                    Cooling
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {COOLING_TYPES.map((cool) => (
+                      <FilterButton
+                        key={cool}
+                        label={cool}
+                        isSelected={filters.cooling.includes(cool)}
+                        onClick={() => toggleArrayFilter("cooling", cool)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-5 flex w-full">
+                  <SheetClose
+                    onClick={() => {
+                      setFilters({
+                        dealType: filters.dealType,
+                        propertyType: [],
+                        minPrice: 50,
+                        maxPrice: 500,
+                        radius: "",
+                        beds: [],
+                        baths: [],
+                        views: [],
+                        outdoor: [],
+                        propertyStyle: [],
+                        leaseTerm: [],
+                        floors: [],
+                        noiseLevel: [],
+                        laundry: [],
+                        securityFeatures: [],
+                        amenities: [],
+                        internet: [],
+                        heating: [],
+                        cooling: [],
+                        location: location,
+                      });
+                      router.push(`/properties?dealType=${filters.dealType}`);
                     }}
-                  />
-                </div>
-                <div className="flex items-center">
-                  <input
-                    type="number"
-                    placeholder="Min"
-                    value={filters.minPrice}
-                    onChange={(e) => {
-                      const value = +e.target.value;
-                      if (value <= filters.maxPrice && value >= 50) {
-                        updateFilter("minPrice", value);
-                      }
-                    }}
-                    className="border border-black rounded-none w-1/2 p-2 outline-none placeholder:font-light font-light"
-                  />
-                  <span className="mx-2">-</span>
-                  <input
-                    type="number"
-                    placeholder="Max"
-                    value={filters.maxPrice}
-                    onChange={(e) => {
-                      const value = +e.target.value;
-                      if (value >= filters.minPrice && value <= 500) {
-                        updateFilter("maxPrice", value);
-                      }
-                    }}
-                    className="border border-black rounded-none w-1/2 p-2 outline-none placeholder:font-light font-light"
-                  />
+                    className="text-black text-lg py-1 rounded-none bg-neutral-200 hover:bg-neutral-300 w-full"
+                  >
+                    Clear
+                  </SheetClose>
+                  <SheetClose
+                    onClick={handleSearch}
+                    className="text-white text-lg rounded-none py-1 bg-secondary hover:bg-secondary2 w-full"
+                  >
+                    Search
+                  </SheetClose>
                 </div>
               </div>
-              {/* Bedrooms Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Bedrooms
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {BEDROOM_OPTIONS.map((bed) => (
-                    <FilterButton
-                      key={bed}
-                      label={bed}
-                      isSelected={filters.beds.includes(bed)}
-                      onClick={() => toggleArrayFilter("beds", bed)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Bathrooms Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Bathrooms
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {BATHROOM_OPTIONS.map((bath) => (
-                    <FilterButton
-                      key={bath}
-                      label={bath}
-                      isSelected={filters.baths.includes(bath)}
-                      onClick={() => toggleArrayFilter("baths", bath)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Views Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Views
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {VIEW_OPTIONS.map((view) => (
-                    <FilterButton
-                      key={view}
-                      label={view}
-                      isSelected={filters.views.includes(view)}
-                      onClick={() => toggleArrayFilter("views", view)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Outdoor Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Outdoor
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {OUTDOOR_OPTIONS.map((out) => (
-                    <FilterButton
-                      key={out}
-                      label={out}
-                      isSelected={filters.outdoor.includes(out)}
-                      onClick={() => toggleArrayFilter("outdoor", out)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Property Style Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Property Style
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {PROPERTY_STYLES.map((style) => (
-                    <FilterButton
-                      key={style}
-                      label={style}
-                      isSelected={filters.propertyStyle.includes(style)}
-                      onClick={() => toggleArrayFilter("propertyStyle", style)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Lease Term Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Lease Term
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {LEASE_TERMS.map((term) => (
-                    <FilterButton
-                      key={term}
-                      label={term}
-                      isSelected={filters.leaseTerm.includes(term)}
-                      onClick={() => toggleArrayFilter("leaseTerm", term)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Floors Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Floors
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {FLOOR_OPTIONS.map((floor) => (
-                    <FilterButton
-                      key={floor}
-                      label={floor}
-                      isSelected={filters.floors.includes(floor)}
-                      onClick={() => toggleArrayFilter("floors", floor)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Noise Level Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Noise Level
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {NOISE_LEVELS.map((noise) => (
-                    <FilterButton
-                      key={noise}
-                      label={noise}
-                      isSelected={filters.noiseLevel.includes(noise)}
-                      onClick={() => toggleArrayFilter("noiseLevel", noise)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Laundry Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Laundry
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {LAUNDRY_OPTIONS.map((laund) => (
-                    <FilterButton
-                      key={laund}
-                      label={laund}
-                      isSelected={filters.laundry.includes(laund)}
-                      onClick={() => toggleArrayFilter("laundry", laund)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Security Features Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Security Features
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {SECURITY_FEATURES.map((sec) => (
-                    <FilterButton
-                      key={sec}
-                      label={sec}
-                      isSelected={filters.securityFeatures.includes(sec)}
-                      onClick={() => toggleArrayFilter("securityFeatures", sec)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Amenities Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Amenities
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {AMENITIES.map((amen) => (
-                    <FilterButton
-                      key={amen}
-                      label={amen}
-                      isSelected={filters.amenities.includes(amen)}
-                      onClick={() => toggleArrayFilter("amenities", amen)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Internet Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Internet
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {INTERNET_TYPES.map((net) => (
-                    <FilterButton
-                      key={net}
-                      label={net}
-                      isSelected={filters.internet.includes(net)}
-                      onClick={() => toggleArrayFilter("internet", net)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Heating Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Heating
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {HEATING_TYPES.map((heat) => (
-                    <FilterButton
-                      key={heat}
-                      label={heat}
-                      isSelected={filters.heating.includes(heat)}
-                      onClick={() => toggleArrayFilter("heating", heat)}
-                    />
-                  ))}
-                </div>
-              </div>
-              {/* Cooling Filter */}
-              <div>
-                <p className="py-2 font-semibold text-primary text-base">
-                  Cooling
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {COOLING_TYPES.map((cool) => (
-                    <FilterButton
-                      key={cool}
-                      label={cool}
-                      isSelected={filters.cooling.includes(cool)}
-                      onClick={() => toggleArrayFilter("cooling", cool)}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="mt-5 flex w-full">
-                <SheetClose
-                  onClick={() => {
-                    setFilters({
-                      dealType: filters.dealType,
-                      propertyType: [],
-                      minPrice: 50,
-                      maxPrice: 500,
-                      radius: "",
-                      beds: [],
-                      baths: [],
-                      views: [],
-                      outdoor: [],
-                      propertyStyle: [],
-                      leaseTerm: [],
-                      floors: [],
-                      noiseLevel: [],
-                      laundry: [],
-                      securityFeatures: [],
-                      amenities: [],
-                      internet: [],
-                      heating: [],
-                      cooling: [],
-                      location: location,
-                    });
-                    router.push(`/properties?dealType=${filters.dealType}`);
-                  }}
-                  className="text-black text-lg py-1 rounded-none bg-neutral-200 hover:bg-neutral-300 w-full"
-                >
-                  Clear
-                </SheetClose>
-                <SheetClose
-                  onClick={handleSearch}
-                  className="text-white text-lg rounded-none py-1 bg-secondary hover:bg-secondary2 w-full"
-                >
-                  Search
-                </SheetClose>
-              </div>
-            </div>
-          </SheetContent>
-        </Sheet>
-        <Button
-          variant="primary"
-          onClick={handleSearch}
-          className="text-white text-lg px-8 rounded-md"
-        >
-          Search
-        </Button>
+            </SheetContent>
+          </Sheet>
+          <Button
+            variant="primary"
+            onClick={handleSearch}
+            className="text-white text-lg px-8 rounded-md w-full"
+          >
+            Search
+          </Button>
+        </div>
       </div>
     </div>
   );

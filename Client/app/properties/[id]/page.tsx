@@ -9,6 +9,7 @@ import Map from "@/components/propertyDetails/map";
 import Characteristics from "@/components/propertyDetails/characteristics";
 import About from "@/components/propertyDetails/about";
 import Similar from "@/components/propertyDetails/similar";
+import Slider2 from "@/components/propertyDetails/slider2";
 
 const page = () => {
   const [property, setProperty] = useState<Property>({
@@ -51,9 +52,14 @@ const page = () => {
   });
 
   return (
-    <div className="py-32 container">
-      <Slider photos={property.images} />
-      <div className="flex gap-5 my-5">
+    <div className="py-28 md:py-32 container">
+      <div className="hidden lg:block">
+        <Slider photos={property.images} />
+      </div>
+      <div className="lg:hidden">
+        <Slider2 photos={property.images} />
+      </div>
+      <div className="flex gap-5 mt-5">
         <div className="flex gap-2 items-center">
           <Heart color="#ff2600" fill="#FF0000" size={24} />
           <span className="text-xl font-slab">Like</span>

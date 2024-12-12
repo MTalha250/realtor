@@ -32,7 +32,7 @@ const Slider = ({ photos }: { photos: string[] }) => {
                 <img
                   src={photo}
                   alt={`Slide ${index}`}
-                  className="object-cover h-full w-full"
+                  className="object-cover h-[75vh] w-full"
                   loading="lazy"
                 />
               </Zoom>

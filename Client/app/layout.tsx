@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useGoogleMapsApi } from "@/hooks/useGoogleMapsApi";
 import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
 import WhatsApp from "@/components/WhatsApp";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -26,7 +27,6 @@ export default function RootLayout({
   if (loadError) {
     return <div>Error loading Google Maps API</div>;
   }
-
   return (
     <html lang="en">
       <body className="antialiased">
@@ -37,6 +37,10 @@ export default function RootLayout({
           <Toaster />
           <WhatsApp />
         </Suspense>
+        <Script
+          strategy="lazyOnload"
+          src="https://embed.tawk.to/66521233981b6c564774ab71/1huo9e72g"
+        />
       </body>
     </html>
   );

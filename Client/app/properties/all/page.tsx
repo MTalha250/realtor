@@ -85,7 +85,7 @@ const AllProperties = () => {
   return (
     <div>
       <Hero title="All Properties" img={img1.src} />
-      <div className="container flex justify-center py-10">
+      <div className="container mx-auto flex justify-center py-10">
         <SearchCard />
       </div>
       <div className="container">

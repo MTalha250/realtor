@@ -12,9 +12,11 @@ interface Props {
 
 const Main = ({ property }: Props) => {
   return (
-    <div className="flex gap-5 py-10">
-      <div className="w-2/3">
-        <h1 className="text-5xl font-slab font-light mb-5">{property.title}</h1>
+    <div className="flex flex-col md:flex-row gap-5 py-10">
+      <div className="w-full md:w-1/2 lg:w-3/5 xl:w-2/3">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-slab font-light mb-5">
+          {property.title}
+        </h1>
         <p className="mb-5 text-xl font-light">
           {property.bedrooms} bedrooms . {property.bathrooms} bathrooms .{" "}
           {property.area} sqft
@@ -34,7 +36,7 @@ const Main = ({ property }: Props) => {
           . Views {property.views} . Likes {property.likes}
         </p>
       </div>
-      <div className="w-1/3 border border-black p-10">
+      <div className="w-full md:w-1/2 lg:w-2/5 xl:w-1/3 border border-black p-10">
         <div className="flex gap-5 mb-4">
           <Avatar>
             <AvatarImage
@@ -46,14 +48,14 @@ const Main = ({ property }: Props) => {
           <div>
             <h2 className="mb-2 font-bold">Fine & Country Cumbria</h2>
             <p className="mb-2">1 year with realtor</p>
-            <div className="flex gap-5">
+            <div className="flex gap-5 whitespace-nowrap">
               <div className="flex gap-2 items-center">
                 <Phone size={24} strokeWidth={0.75} />
-                <span>Call Now</span>
+                <span>Call</span>
               </div>
               <div className="flex gap-2 items-center">
                 <img src={whatsapp.src} alt="whatsapp" className="w-6" />
-                <span>Chat Now</span>
+                <span>Chat</span>
               </div>
             </div>
           </div>

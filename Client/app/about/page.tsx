@@ -44,7 +44,7 @@ const About = () => {
             className="max-w-4xl mx-auto text-center"
             variants={itemVariants}
           >
-            <h2 className="text-4xl font-medium font-slab text-primary mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-medium font-slab text-primary mb-6 leading-tight">
               Welcome to Your Dream Property
             </h2>
             <p className="text-xl text-gray-600 leading-relaxed">
@@ -65,7 +65,7 @@ const About = () => {
             >
               <div className="flex items-center mb-5">
                 <Target className="text-primary w-12 h-12 mr-4" />
-                <h3 className="text-3xl font-slab font-medium text-primary">
+                <h3 className="text-2xl sm:text-3xl font-slab font-medium text-primary">
                   Our Mission
                 </h3>
               </div>
@@ -85,7 +85,7 @@ const About = () => {
             >
               <div className="flex items-center mb-5">
                 <Globe className="text-primary w-12 h-12 mr-4" />
-                <h3 className="text-3xl font-slab font-medium text-primary">
+                <h3 className="text-2xl sm:text-3xl font-slab font-medium text-primary">
                   Our Vision
                 </h3>
               </div>
@@ -98,7 +98,7 @@ const About = () => {
           </div>
         </section>
         <section className="py-10">
-          <h3 className="text-4xl font-slab font-medium text-primary text-center mb-10">
+          <h3 className="text-3xl md:text-4xl font-slab font-medium text-primary text-center mb-10">
             Why Choose Us?
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -144,12 +144,12 @@ const About = () => {
         </section>
         <section className="py-10 my-10 bg-primary text-white rounded-3xl">
           <motion.div
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-3xl mx-auto text-center p-8"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-4xl font-bold mb-6">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
               Ready to Find Your Dream Property?
             </h3>
             <p className="text-xl mb-8 text-gray-200">

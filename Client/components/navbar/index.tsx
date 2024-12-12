@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { navLinks } from "@/constants";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Sidebar from "./Sidebar";
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(-1);
@@ -83,6 +84,7 @@ const Navbar = () => {
             Contact Us
           </Link>
         </div>
+        <Sidebar />
       </div>
     </div>
   );

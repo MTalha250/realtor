@@ -12,14 +12,14 @@ import React from "react";
 const ContactForm = () => {
   return (
     <div className="container py-10">
-      <h1 className="text-4xl font-slab text-center text-secondary mb-4">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-slab text-center text-secondary mb-4">
         Get In Touch
       </h1>
       <p className="text-center mb-4">
         Fill up the form our team will get back to you within 24 Hours
       </p>
-      <form className="flex flex-col gap-5">
-        <div className="flex gap-5">
+      <form className="flex flex-col gap-2 md:gap-5">
+        <div className="flex flex-col sm:flex-row gap-5">
           <div className="w-full">
             <label className="block text-sm font-semibold" htmlFor="fullName">
               Full Name*
@@ -43,7 +43,7 @@ const ContactForm = () => {
             />
           </div>
         </div>
-        <div className="flex gap-5">
+        <div className="flex flex-col sm:flex-row gap-5">
           <div className="w-full">
             <label
               className="block text-sm font-semibold mb-2"
@@ -73,7 +73,7 @@ const ContactForm = () => {
             />
           </div>
         </div>
-        <div className="flex gap-5">
+        <div className="flex flex-col sm:flex-row gap-5">
           <div className="w-full">
             <label className="block text-sm font-semibold mb-2" htmlFor="city">
               City*

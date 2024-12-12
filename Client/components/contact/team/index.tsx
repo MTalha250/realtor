@@ -4,10 +4,10 @@ import { team } from "@/constants";
 const Team = () => {
   return (
     <div className="container py-10">
-      <h1 className="text-secondary text-4xl mb-10 text-center font-slab">
+      <h1 className="text-secondary text-3xl md:text-4xl mb-10 text-center font-slab">
         Meet Our Team
       </h1>
-      <div className="flex justify-center gap-20">
+      <div className="flex flex-wrap justify-center gap-10">
         {team.map((item, index) => (
           <div key={index} className="flex flex-col items-center">
             <img
