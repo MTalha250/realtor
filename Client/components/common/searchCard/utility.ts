@@ -14,8 +14,8 @@ export const parseSearchParams = (
       : undefined,
     radius: searchParams.get("radius") || undefined,
     propertyType: parseJsonParam(searchParams.get("propertyType")),
-    minPrice: Number(searchParams.get("min")) || 50,
-    maxPrice: Number(searchParams.get("max")) || 500,
+    minPrice: Number(searchParams.get("min")) || undefined,
+    maxPrice: Number(searchParams.get("max")) || undefined,
     beds: parseJsonParam(searchParams.get("beds")),
     baths: parseJsonParam(searchParams.get("baths")),
     views: parseJsonParam(searchParams.get("views")),
@@ -33,7 +33,9 @@ export const parseSearchParams = (
   };
 };
 
-export const buildSearchQuery = (filters: SearchFilters): URLSearchParams => {
+export const buildSearchQuery = (
+  filters: Partial<SearchFilters>
+): URLSearchParams => {
   const query = new URLSearchParams();
 
   Object.entries(filters).forEach(([key, value]) => {
