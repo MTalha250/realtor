@@ -191,20 +191,22 @@ class PropertyController extends Controller
         }
     
         $filters = [
-            'beds' => 'bedrooms',
-            'baths' => 'bathrooms',
             'views' => 'view',
+            'dealType' => 'dealType',
             'outdoor' => 'outdoor',
             'propertyStyle' => 'propertyStyle',
-            'leaseTerm' => 'leaseTerm',
-            'floors' => 'floors',
-            'noiseLevel' => 'noiseLevel',
-            'laundry' => 'laundry',
+            //'leaseTerm' => 'leaseTerm',
+            //'floors' => 'floors',
+           // 'noiseLevel' => 'noiseLevel',
+            //'laundry' => 'laundry',
             'amenities' => 'amenities',
             'internet' => 'internet',
             'heating' => 'heating',
             'cooling' => 'cooling',
+            'securityFeatures' => 'securityFeatures',
         ];
+
+        //propertyType filter
     
         if ($request->has('propertyType')) {
             $propertyTypes = json_decode($request->query('propertyType'), true);
@@ -217,7 +219,140 @@ class PropertyController extends Controller
                 });
             }
         }
+        //dealType filter
+        if ($request->has('dealType')) {
+            $dealType = $request->query('dealType');
+        
+            if (!empty($dealType)) {
+                $query->where('dealType', '=', $dealType);
+            }
+        }
+
+        //beds filter
+
+        if ($request->has('beds')) {
+            $bedsFilter = json_decode($request->query('beds'), true);
+            \Log::info('Beds Filter Input:', ['beds' => $bedsFilter]);
     
+            if (is_array($bedsFilter) && count($bedsFilter) > 0) {
+                $query->where(function ($subQuery) use ($bedsFilter) {
+                    foreach ($bedsFilter as $bed) {
+                        if (str_ends_with($bed, '+')) {
+                            $bedCount = (int) rtrim($bed, '+');
+                            \Log::info('Beds Filter Greater Than or Equal:', ['bedCount' => $bedCount]);
+                            $subQuery->orWhere('bedrooms', '>=', $bedCount);
+                        } elseif (is_numeric($bed)) {
+                            \Log::info('Beds Filter Exact Match:', ['bedCount' => $bed]);
+                            $subQuery->orWhere('bedrooms', '=', (int) $bed);
+                        }
+                    }
+                });
+            }
+        }
+
+        //bathrooms filter
+
+
+        if ($request->has('baths')) {
+            $bathsFilter = json_decode($request->query('baths'), true);
+            \Log::info('baths Filter Input:', ['baths' => $bathsFilter]);
+    
+            if (is_array($bathsFilter) && count($bathsFilter) > 0) {
+                $query->where(function ($subQuery) use ($bathsFilter) {
+                    foreach ($bathsFilter as $bath) {
+                        if (str_ends_with($bath, '+')) {
+                            $bathCount = (int) rtrim($bath, '+');
+                            \Log::info('baths Filter Greater Than or Equal:', ['bathCount' => $bathCount]);
+                            $subQuery->orWhere('bathrooms', '>=', $bathCount);
+                        } elseif (is_numeric($bath)) {
+                            \Log::info('baths Filter Exact Match:', ['bathCount' => $bath]);
+                            $subQuery->orWhere('bathrooms', '=', (int) $bath);
+                        }
+                    }
+                });
+            }
+        }
+    //leaseTerm filter
+
+    if ($request->has('leaseTerm')) {
+        $leaseTerm = json_decode($request->query('leaseTerm'), true);
+
+        if (is_array($leaseTerm) && count($leaseTerm) > 0) {
+            $query->where(function ($subQuery) use ($leaseTerm) {
+                foreach ($leaseTerm as $lease) {
+                    $subQuery->orWhere('leaseTerm', 'LIKE', '%' . $lease . '%');
+                }
+            });
+        }
+    }
+
+    //floors filter
+
+    if ($request->has('floors')) {
+        $floorsFilter = json_decode($request->query('floors'), true);
+        \Log::info('floors Filter Input:', ['floors' => $floorsFilter]);
+
+        if (is_array($floorsFilter) && count($floorsFilter) > 0) {
+            $query->where(function ($subQuery) use ($floorsFilter) {
+                foreach ($floorsFilter as $floor) {
+                    if (str_ends_with($floor, '+')) {
+                        $floorCount = (int) rtrim($floor, '+');
+                        \Log::info('floors Filter Greater Than or Equal:', ['floorCount' => $floorCount]);
+                        $subQuery->orWhere('floors', '>=', $floorCount);
+                    } elseif (is_numeric($floor)) {
+                        \Log::info('floors Filter Exact Match:', ['floorCount' => $floor]);
+                        $subQuery->orWhere('floors', '=', (int) $floor);
+                    }
+                }
+            });
+        }
+    }
+
+    //noise level filter
+
+    if ($request->has('noiseLevel')) {
+        $noiseLevel = json_decode($request->query('noiseLevel'), true);
+
+        if (is_array($noiseLevel) && count($noiseLevel) > 0) {
+            $query->where(function ($subQuery) use ($noiseLevel) {
+                foreach ($noiseLevel as $type) {
+                    $subQuery->orWhere('noiseLevel', 'LIKE', '%' . $type . '%');
+                }
+            });
+        }
+    }
+
+
+    //laundry filter
+
+    if ($request->has('laundry')) {
+        $laundry = json_decode($request->query('laundry'), true);
+
+        if (is_array($laundry) && count($laundry) > 0) {
+            $query->where(function ($subQuery) use ($laundry) {
+                foreach ($laundry as $type) {
+                    $subQuery->orWhere('laundry', 'LIKE', '%' . $type . '%');
+                }
+            });
+        }
+    }
+
+    //internet filter
+
+    if ($request->has('internet')) {
+        $internet = json_decode($request->query('internet'), true);
+
+        if (is_array($internet) && count($internet) > 0) {
+            $query->where(function ($subQuery) use ($internet) {
+                foreach ($internet as $type) {
+                    $subQuery->orWhere('internet', 'LIKE', '%' . $type . '%');
+                }
+            });
+        }
+    }
+
+    //General filters
+                    
         foreach ($filters as $param => $column) {
             if ($request->has($param)) {
                 $values = json_decode($request->query($param), true);
@@ -231,9 +366,12 @@ class PropertyController extends Controller
                 }
             }
         }
+
+
     
-        $minPrice = $request->query('min', 0);
-        $maxPrice = $request->query('max', PHP_INT_MAX);
+        $minPrice = $request->query('minPrice', 0);
+        $maxPrice = $request->query('maxPrice', PHP_INT_MAX);
+        \Log::info('Price Filter Input:', ['minPrice' => $minPrice, 'maxPrice' => $maxPrice]);
         $query->whereBetween('price', [(float)$minPrice, (float)$maxPrice]);
     
         $fields = $request->query('fields', '*');
