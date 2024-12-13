@@ -175,18 +175,20 @@ class PropertyController extends Controller
         $query = Property::with(['images', 'location']);
         
         $location = $request->query('location') ? json_decode($request->query('location'), true) : null;
-        $radius = $request->query('radius', 10);
-    
+        $radiusInMiles  = $request->query('radius', 10);
+
+        $radiusInMeters = $radiusInMiles * 1609.34;
+
         if ($location && isset($location['latitude']) && isset($location['longitude'])) {
             $latitude = $location['latitude'];
             $longitude = $location['longitude'];
     
-            $query->whereHas('location', function ($subQuery) use ($latitude, $longitude, $radius) {
+            $query->whereHas('location', function ($subQuery) use ($latitude, $longitude, $radiusInMeters) {
                 $subQuery->whereRaw("
                     ST_Distance_Sphere(
                         point(longitude, latitude),
                         point(?, ?)
-                    ) <= ?", [$longitude, $latitude, $radius * 1000]);
+                    ) <= ?", [$longitude, $latitude, $radiusInMeters]);
             });
         }
     
@@ -207,7 +209,6 @@ class PropertyController extends Controller
         ];
 
         //propertyType filter
-    
         if ($request->has('propertyType')) {
             $propertyTypes = json_decode($request->query('propertyType'), true);
     
@@ -227,7 +228,6 @@ class PropertyController extends Controller
                 $query->where('dealType', '=', $dealType);
             }
         }
-
         //beds filter
 
         if ($request->has('beds')) {
