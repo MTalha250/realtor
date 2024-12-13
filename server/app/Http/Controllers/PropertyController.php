@@ -228,6 +228,14 @@ class PropertyController extends Controller
                 $query->where('dealType', '=', $dealType);
             }
         }
+        //condition filter 
+        if ($request->has('condition')) {
+            $condition = $request->query('condition');
+        
+            if (!empty($condition)) {
+                $query->where('condition', '=', $dealType);
+            }
+        }
         //beds filter
 
         if ($request->has('beds')) {
