@@ -39,7 +39,7 @@ export default function RootLayout({
         </Suspense>
         <Script
           strategy="lazyOnload"
-          src="https://embed.tawk.to/66521233981b6c564774ab71/1huo9e72g"
+          src="https://embed.tawk.to/675ddb42af5bfec1dbdbd616/1if3a0v76"
         />
       </body>
     </html>

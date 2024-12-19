@@ -22,7 +22,7 @@ export const navLinks = [
   },
   {
     title: "Rentals",
-    url: "/properties?dealType=rental",
+    url: "/properties?dealType=rent",
   },
   {
     title: "Sell or Rent",
