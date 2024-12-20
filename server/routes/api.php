@@ -6,7 +6,6 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SiteViewrController;
 
-
 Route::get('/properties', [PropertyController::class, 'index']);
 Route::post('/properties', [PropertyController::class, 'store']);
 Route::get('/properties/{id}', [PropertyController::class, 'show']);
@@ -16,6 +15,7 @@ Route::get('/search/properties', [PropertyController::class, 'search']);
 Route::patch('/properties/{id}/increment-views', [PropertyController::class, 'incrementViews']);
 Route::patch('/properties/{id}/increment-likes', [PropertyController::class, 'incrementLikes']);
 Route::put('/admin/update-password', [AdminController::class, 'updatePassword']);
+Route::get('most-viewed/properties', [PropertyController::class, 'getFilteredProperties']);
 
 Route::post('/increment-site-views', [SiteViewrController::class, 'incrementSiteViews']);
 Route::get('/dashboard', [AdminController::class, 'dashboard']);

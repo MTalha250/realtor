@@ -412,4 +412,42 @@ public function incrementLikes($id)
     return response()->json(['message' => 'Likes incremented successfully.', 'likes' => $property->likes]);
 }
 
+
+public function getFilteredProperties()
+{
+    $mostViewedProperties = Property::with(['images', 'location'])
+        ->orderByDesc('views')
+        ->take(6)
+        ->get();
+
+    $rentProperties = Property::with(['images', 'location'])
+        ->where('dealType', 'rent')
+        ->take(6)
+        ->get();
+
+    $newSaleProperties = Property::with(['images', 'location'])
+        ->where('dealType', 'sale')
+        ->where('condition', 'new')
+        ->take(6)
+        ->get();
+
+    
+    $usedSaleProperties = Property::with(['images', 'location'])
+        ->where('dealType', 'sale')
+        ->where('condition', 'used')
+        ->take(6)
+        ->get();
+    $mostViewedProperties = $mostViewedProperties->map(fn($property) => $this->transformPropertyResponse($property));
+    $rentProperties = $rentProperties->map(fn($property) => $this->transformPropertyResponse($property));
+    $newSaleProperties = $newSaleProperties->map(fn($property) => $this->transformPropertyResponse($property));
+    $usedSaleProperties = $usedSaleProperties->map(fn($property) => $this->transformPropertyResponse($property));
+
+    return response()->json([
+        'mostViewed' => $mostViewedProperties, // most viewed properties
+        'rent' => $rentProperties, // rent properties
+        'newSale' => $newSaleProperties, // new for sale properties
+        'usedSale' => $usedSaleProperties, // used for sale properties
+    ]);
+}
+
 }
