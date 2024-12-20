@@ -25,18 +25,18 @@ const CardFour = ({ product }: Props) => {
           <MapPin strokeWidth={0.75} size={18} />
           <span>{product.location?.region}</span>
         </p>
-        <div className="flex gap-3 mb-4">
+        <div className="flex gap-3 mb-4 whitespace-nowrap">
           <div className="flex items-center gap-1 bg-neutral-200 rounded-full p-3">
-            <Bed strokeWidth={0.75} size={18} />
-            <span className="text-sm">{product.bedrooms} Beds</span>
+            <Bed strokeWidth={0.5} size={18} />
+            <span className="text-xs">{product.bedrooms} Beds</span>
           </div>
           <div className="flex items-center gap-1 bg-neutral-200 rounded-full p-3">
-            <Bath strokeWidth={0.75} size={18} />
-            <span className="text-sm">{product.bathrooms} Baths</span>
+            <Bath strokeWidth={0.5} size={18} />
+            <span className="text-xs">{product.bathrooms} Baths</span>
           </div>
           <div className="flex items-center gap-1 bg-neutral-200 rounded-full p-3">
-            <LandPlot strokeWidth={0.75} size={18} />
-            <span className="text-sm">{product.area} sqft</span>
+            <LandPlot strokeWidth={0.5} size={18} />
+            <span className="text-xs">{product.area} sqft</span>
           </div>
         </div>
         <div className="pt-5 border-t flex justify-between items-center">

@@ -128,9 +128,9 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
     try {
       if (autocompleteRef.current) {
         const place = autocompleteRef.current.getPlace();
-
-        if (!place.geometry) {
-          throw new Error("No geometry information available");
+        if (!place.geometry || !place.geometry.location) {
+          toast.error("Error selecting place. Please try again.");
+          return;
         }
 
         const lat = place.geometry.location?.lat();
@@ -180,7 +180,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
   // Handle search with validation
   const handleSearch = useCallback(() => {
     let updatedFilters = { ...filters };
-    if (location.latitude > 0 && location.longitude > 0)
+    if (location.latitude && location.longitude)
       updatedFilters = { ...filters, location };
     else updatedFilters = { ...filters, location: undefined };
 
@@ -217,6 +217,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
           <label className="w-full">
             <Select
               onValueChange={(e) => updateFilter("radius", e)}
+              disabled={!location.longitude || !location.latitude}
               value={filters.radius}
             >
               <SelectTrigger className="border-none gap-2 focus:ring-0 p-0 text-base">

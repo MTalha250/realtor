@@ -199,6 +199,7 @@ const Calculator: React.FC = () => {
     <div className="container py-10 md:py-20">
       <form
         onSubmit={handleSubmit}
+        onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
         className="bg-primary2 p-10 rounded-3xl text-white"
       >
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-slab text-center mb-4">

@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import img from "@/assets/product.jpg";
 import { useSearchParams } from "next/navigation";
 import SearchCard from "@/components/common/searchCard";
@@ -14,6 +14,7 @@ import {
   parseSearchParams,
 } from "@/components/common/searchCard/utility";
 import { SearchFilters } from "@/types/searchTypes";
+import axios from "axios";
 const Properties = () => {
   const searchParams = useSearchParams();
   const filters = useMemo(
@@ -25,180 +26,62 @@ const Properties = () => {
   const [view, setView] = useState("grid");
   const router = useRouter();
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [properties, setProperties] = useState<Partial<Property>[]>([
-    {
-      id: 1,
-      images: [img.src],
-      title: "Historic Center Apartment",
-      description:
-        "Experience the charm of Santa Marta's Historic Center in this cozy apartment. Close to the best restaurants, bars, and cultural spots.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "month",
-      area: 2000,
-      location: {
-        latitude: 11.2408,
-        longitude: -74.199,
-        region: "Historic Center, Santa Marta",
-      },
-    },
-    {
-      id: 2,
-      images: [img.src],
-      title: "Beachfront Villa in Rodadero",
-      description:
-        "A luxurious villa steps away from the golden sands of El Rodadero Beach. Perfect for a family getaway or a romantic retreat.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "night",
-      area: 2000,
-      location: {
-        latitude: 11.243,
-        longitude: -74.211,
-        region: "El Rodadero, Santa Marta",
-      },
-    },
-    {
-      id: 3,
-      images: [img.src],
-      title: "Tranquil Retreat near Minca",
-      description:
-        "Relax in the lush green hills near Minca, a short drive from Santa Marta. Ideal for nature lovers and peace seekers.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "month",
-      area: 2000,
-      location: {
-        latitude: 11.245,
-        longitude: -74.1985,
-        region: "Near Minca, Santa Marta",
-      },
-    },
-    {
-      id: 4,
-      images: [img.src],
-      title: "Luxury Condo in Pozos Colorados",
-      description:
-        "Enjoy stunning ocean views from this modern condo in Pozos Colorados, a quiet neighborhood perfect for relaxation.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "night",
-      area: 2000,
-      location: {
-        latitude: 11.25,
-        longitude: -74.22,
-        region: "Pozos Colorados, Santa Marta",
-      },
-    },
-    {
-      id: 5,
-      images: [img.src],
-      title: "Cozy Apartment near Taganga",
-      description:
-        "Stay in this charming apartment near the fishing village of Taganga. Perfect for diving enthusiasts and beach lovers.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "month",
-      area: 2000,
-      location: {
-        latitude: 11.235,
-        longitude: -74.21,
-        region: "Taganga, Santa Marta",
-      },
-    },
-    {
-      id: 6,
-      images: [img.src],
-      title: "Modern Loft near Marina",
-      description:
-        "A stylish and modern loft just minutes from Marina Santa Marta. Ideal for exploring the city and enjoying water activities.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "night",
-      area: 2000,
-      location: {
-        latitude: 11.243,
-        longitude: -74.205,
-        region: "Marina Area, Santa Marta",
-      },
-    },
-    {
-      id: 7,
-      images: [img.src],
-      title: "Quiet Home in Gaira",
-      description:
-        "A comfortable home in Gaira, a peaceful area near El Rodadero and the main attractions of Santa Marta.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "month",
-      area: 2000,
-      location: {
-        latitude: 11.23,
-        longitude: -74.215,
-        region: "Gaira, Santa Marta",
-      },
-    },
-    {
-      id: 8,
-      images: [img.src],
-      title: "Boutique Apartment in Bello Horizonte",
-      description:
-        "Stay in this elegant apartment in Bello Horizonte, close to pristine beaches and high-end restaurants.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "night",
-      area: 2000,
-      location: {
-        latitude: 11.238,
-        longitude: -74.202,
-        region: "Bello Horizonte, Santa Marta",
-      },
-    },
-    {
-      id: 9,
-      images: [img.src],
-      title: "Family Home near Quinta de San Pedro",
-      description:
-        "A spacious family home located near the historic Quinta de San Pedro Alejandrino, ideal for exploring Santa Marta's heritage.",
-      bedrooms: 3,
-      bathrooms: 2,
-      price: 200000,
-      priceType: "month",
-      area: 2000,
-      location: {
-        latitude: 11.239,
-        longitude: -74.22,
-        region: "Near Quinta de San Pedro, Santa Marta",
-      },
-    },
-  ]);
+  const [center, setCenter] = useState({ lat: 11.2403547, lng: -74.2110227 });
+  const [properties, setProperties] = useState<Partial<Property>[]>([]);
 
-  const center = {
-    lat: filters.location?.latitude
-      ? filters.location.latitude
-      : properties.reduce(
-          (acc, property) => acc + (property.location?.latitude || 0),
-          0
-        ) / properties.length,
-    lng: filters.location?.longitude
-      ? filters.location.longitude
-      : properties.reduce(
-          (acc, property) => acc + (property.location?.longitude || 0),
-          0
-        ) / properties.length,
-  };
+  const initialFilters = useMemo(
+    () => parseSearchParams(searchParams),
+    [searchParams]
+  );
+
+  const fetchProperties = useCallback(
+    async (filters: Partial<SearchFilters>) => {
+      const dealTypeQuery = `dealType=${filters.dealType || "sale"}`;
+
+      const query =
+        Object.keys(filters).length > 1
+          ? buildSearchQuery(filters).toString()
+          : dealTypeQuery;
+
+      try {
+        setLoading(true);
+
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/search/properties?${query}`
+        );
+
+        setProperties(response.data.data || []);
+
+        if (filters.location?.latitude && filters.location?.longitude) {
+          setCenter({
+            lat: Number(filters.location.latitude),
+            lng: Number(filters.location.longitude),
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch properties:", err);
+        setProperties([]);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    fetchProperties(initialFilters);
+  }, [fetchProperties, initialFilters]);
+
+  const handleSearchComplete = useCallback(
+    async (filters: SearchFilters) => {
+      await fetchProperties(filters);
+    },
+    [fetchProperties]
+  );
 
   return (
     <div className="pt-20">
-      {isLoaded && (
+      {isLoaded && !loading && (
         <div className="mt-1 md:mt-2 relative">
           <GoogleMap
             mapContainerStyle={{
@@ -206,7 +89,7 @@ const Properties = () => {
               height: "500px",
             }}
             center={center}
-            zoom={15}
+            zoom={14}
             onLoad={(map) => {
               setMap(map);
             }}
@@ -216,8 +99,8 @@ const Properties = () => {
                 onClick={() => router.push(`/properties/${property.id}`)}
                 key={property.id}
                 position={{
-                  lat: property.location?.latitude || 0,
-                  lng: property.location?.longitude || 0,
+                  lat: Number(property.location?.latitude) || 0,
+                  lng: Number(property.location?.longitude) || 0,
                 }}
               />
             ))}
@@ -243,12 +126,7 @@ const Properties = () => {
         </div>
       )}
       <div className="container flex justify-center py-10">
-        <SearchCard
-          onSearchComplete={(filters: SearchFilters) => {
-            const query = buildSearchQuery(filters);
-            console.log(query.toString());
-          }}
-        />
+        <SearchCard onSearchComplete={handleSearchComplete} />
       </div>
       <div className="container">
         <div className="hidden md:block w-full relative h-5">

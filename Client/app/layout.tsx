@@ -2,13 +2,13 @@
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 import { useEffect } from "react";
 import { useGoogleMapsApi } from "@/hooks/useGoogleMapsApi";
 import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
 import WhatsApp from "@/components/WhatsApp";
 import Script from "next/script";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -34,12 +34,12 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          <Toaster />
           <WhatsApp />
+          <Toaster />
         </Suspense>
         <Script
           strategy="lazyOnload"
-          src="https://embed.tawk.to/66521233981b6c564774ab71/1huo9e72g"
+          src="https://embed.tawk.to/675ddb42af5bfec1dbdbd616/1if3a0v76"
         />
       </body>
     </html>

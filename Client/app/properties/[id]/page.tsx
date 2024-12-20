@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import img from "@/assets/hero.jpg";
 import Slider from "@/components/propertyDetails/slider";
 import { Heart, Forward } from "lucide-react";
@@ -10,76 +10,191 @@ import Characteristics from "@/components/propertyDetails/characteristics";
 import About from "@/components/propertyDetails/about";
 import Similar from "@/components/propertyDetails/similar";
 import Slider2 from "@/components/propertyDetails/slider2";
+import { useParams } from "next/navigation";
+import facebook from "@/assets/facebook.png";
+import instagram from "@/assets/instagram.png";
+import whatsapp from "@/assets/whatsapp.png";
+import tiktok from "@/assets/tiktok.png";
+
+import axios from "axios";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const page = () => {
-  const [property, setProperty] = useState<Property>({
-    id: 1,
-    images: [img.src, img.src, img.src, img.src, img.src],
-    title: "11 Bedroom Equestrian For Sale In Cockermouth",
-    description:
-      "The description was automatically translated. Show original A journey through time Entire Hall's historic roots run deep, with its main tower dating back to 1290. The south wing, built around 1590, adds to the charm, while the main building, completed in 1863, is a testament to Victorian architectural grandeur. The property's premises licence adds to its versatility, making it an ideal venue for business and leisure travellers alike.",
-    bedrooms: 3,
-    bathrooms: 2,
-    price: 200000,
-    priceType: "month",
-    area: 2000,
-    location: {
-      latitude: 11.243,
-      longitude: -74.211,
-      region: "El Rodadero, Santa Marta",
-    },
-    propertyType: "House",
-    dealType: "Sale",
-    condition: "New",
-    view: ["City", "Mountain"],
-    outdoor: ["Balcony", "Garden"],
-    propertyStyle: ["Modern"],
-    leaseTerm: "Long Term",
-    floors: 2,
-    noiseLevel: "Low",
-    laundry: "In Unit",
-    securityFeatures: ["Alarm", "Doorman"],
-    amenities: ["Gym", "Swimming Pool", "Garage", "Fireplace"],
-    internet: "Fiber",
-    heating: ["Central"],
-    cooling: ["Central"],
-    views: 100,
-    likes: 50,
-    video:
-      "https://res.cloudinary.com/dewqsghdi/video/upload/v1732637542/A_short_placeholder_video_ysw7yh.mp4",
-    created_at: "2021-07-01T00:00:00.000Z",
-    updated_at: "2021-07-01T00:00:00.000Z",
-  });
+  const { id } = useParams();
+  const [property, setProperty] = useState<Property>();
+
+  const fetchProperty = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/properties/${id}`
+      );
+      setProperty(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const incrementView = async () => {
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/properties/${id}/increment-views`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const incrementLike = async () => {
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/properties/${id}/increment-likes`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProperty();
+    incrementView();
+  }, []);
 
   return (
-    <div className="py-28 md:py-32 container">
-      <div className="hidden lg:block">
-        <Slider photos={property.images} />
-      </div>
-      <div className="lg:hidden">
-        <Slider2 photos={property.images} />
-      </div>
-      <div className="flex gap-5 mt-5">
-        <div className="flex gap-2 items-center">
-          <Heart color="#ff2600" fill="#FF0000" size={24} />
-          <span className="text-xl font-slab">Like</span>
+    property && (
+      <div className="py-28 md:py-32 container">
+        <div className="hidden lg:block">
+          <Slider photos={property.images} />
         </div>
-        <div className="flex gap-2 items-center">
-          <Forward size={24} strokeWidth={3} />
-          <span className="text-xl font-slab">Share</span>
+        <div className="lg:hidden">
+          <Slider2 photos={property.images} />
         </div>
+        <div className="flex gap-5 mt-5">
+          <button
+            onClick={incrementLike}
+            className="flex gap-2 items-center hover:scale-105 transition duration-300"
+          >
+            <Heart color="#ff2600" fill="#FF0000" size={24} />
+            <span className="text-xl font-slab">Like</span>
+          </button>
+          <Dialog>
+            <DialogTrigger className="flex gap-2 items-center">
+              <Forward size={24} strokeWidth={3} />
+              <span className="text-xl font-slab">Share</span>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle className="text-xl font-semibold text-gray-800 text-center">
+                Share this property
+              </DialogTitle>
+              <div className="flex flex-col items-center gap-6 mt-6">
+                <p className="text-center text-gray-600 text-sm">
+                  Share this amazing property with your friends:
+                  <br />
+                  <span className="font-medium">{property.title}</span>
+                  <br />
+                  Located at{" "}
+                  <span className="italic">{property.location.region}</span>.
+                </p>
+                <div className="flex justify-center gap-4">
+                  {/* Facebook Button */}
+                  <button
+                    onClick={() =>
+                      window.open(
+                        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                          window.location.href
+                        )}&quote=${encodeURIComponent(
+                          `Check out this amazing property: ${property.title} located at ${property.location.region}!`
+                        )}`,
+                        "_blank"
+                      )
+                    }
+                    className="p-2 bg-blue-600 rounded-full transition-transform transform hover:scale-110 hover:bg-blue-700"
+                  >
+                    <img
+                      src={facebook.src}
+                      alt="facebook"
+                      className="w-8 h-8"
+                    />
+                  </button>
+
+                  {/* Instagram Button */}
+                  <button
+                    onClick={() =>
+                      window.open(`https://www.instagram.com/`, "_blank")
+                    }
+                    className="p-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-full transition-transform transform hover:scale-110"
+                  >
+                    <img
+                      src={instagram.src}
+                      alt="instagram"
+                      className="w-8 h-8 bg-white rounded-lg"
+                    />
+                  </button>
+
+                  {/* WhatsApp Button */}
+                  <button
+                    onClick={() =>
+                      window.open(
+                        `https://wa.me/?text=${encodeURIComponent(
+                          `Check out this amazing property: ${property.title} located at ${property.location.region}! ${window.location.href}`
+                        )}`,
+                        "_blank"
+                      )
+                    }
+                    className="p-2 bg-green-500 rounded-full transition-transform transform hover:scale-110 hover:bg-green-600"
+                  >
+                    <img
+                      src={whatsapp.src}
+                      alt="whatsapp"
+                      className="w-8 h-8"
+                    />
+                  </button>
+
+                  {/* TikTok Button */}
+                  <button
+                    onClick={() =>
+                      window.open(`https://www.tiktok.com/`, "_blank")
+                    }
+                    className="p-2 bg-black rounded-full transition-transform transform hover:scale-110 hover:bg-gray-800"
+                  >
+                    <img src={tiktok.src} alt="tiktok" className="w-8 h-8" />
+                  </button>
+
+                  {/* Copy Link Button */}
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        `Check out this amazing property: ${property.title} located at ${property.location.region}! ${window.location.href}`
+                      );
+                      alert("Link copied to clipboard!");
+                    }}
+                    className="py-2 px-4 bg-gray-300 rounded-full transition-transform transform hover:scale-110 hover:bg-gray-400"
+                  >
+                    <span className="text-black font-semibold text-sm">
+                      Copy Link
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+        <Main property={property} />
+        <Video photos={property.images} video={property.video} />
+        <Map
+          latitude={Number(property.location.latitude)}
+          longitude={Number(property.location.longitude)}
+          region={property.location.region}
+        />
+        <Characteristics characteristics={property.amenities} />
+        <About property={property} />
+        <Similar />
       </div>
-      <Main property={property} />
-      <Video photos={property.images} video={property.video} />
-      <Map
-        latitude={property.location.latitude}
-        longitude={property.location.longitude}
-        region={property.location.region}
-      />
-      <Characteristics characteristics={property.amenities} />
-      {/* <About property={property} /> */}
-      <Similar />
-    </div>
+    )
   );
 };
 

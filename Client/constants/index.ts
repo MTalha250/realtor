@@ -22,7 +22,7 @@ export const navLinks = [
   },
   {
     title: "Rentals",
-    url: "/properties?dealType=rental",
+    url: "/properties?dealType=rent",
   },
   {
     title: "Sell or Rent",
@@ -117,6 +117,8 @@ export const RADIUS_OPTIONS = [
   { value: "5", label: "5 miles" },
   { value: "10", label: "10 miles" },
   { value: "20", label: "20 miles" },
+  { value: "50", label: "50 miles" },
+  { value: "100", label: "100 miles" },
 ] as const;
 
 export const PRICE_RANGES = [

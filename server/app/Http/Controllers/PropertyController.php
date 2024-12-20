@@ -75,7 +75,6 @@ class PropertyController extends Controller
             'bathrooms' => 'required|integer|min:0',
             'area' => 'required|integer|min:0',
             'propertyType' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
             'dealType' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'images' => 'nullable|array',
