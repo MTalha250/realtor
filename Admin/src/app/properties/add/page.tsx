@@ -296,7 +296,10 @@ const AddProperty = () => {
             </h3>
           </div>
           <div className="p-7">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+              onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className="mb-5.5 w-full">
                 <Controller
                   name="images"

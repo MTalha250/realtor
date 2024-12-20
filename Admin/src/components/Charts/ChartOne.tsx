@@ -12,7 +12,7 @@ const options: ApexOptions = {
   legend: {
     show: false,
   },
-  colors: ["#3C50E0"],
+  colors: ["#6F8D38"],
   chart: {
     fontFamily: "Satoshi, sans-serif",
     height: 335,
@@ -69,7 +69,7 @@ const options: ApexOptions = {
   markers: {
     size: 4,
     colors: "#fff",
-    strokeColors: ["#3056D3"],
+    strokeColors: ["#6F8D38"],
     strokeWidth: 3,
     strokeOpacity: 0.9,
     fillOpacity: 1,
@@ -103,31 +103,31 @@ const options: ApexOptions = {
   yaxis: {
     min: 0,
     labels: {
-      formatter: (value) => `PKR ${value.toFixed()}`,
+      formatter: (value) => value.toFixed(0), // Display as whole numbers
     },
   },
   tooltip: {
     y: {
-      formatter: (value) => `PKR ${value.toFixed()}`,
+      formatter: (value) => `${value.toFixed(0)} properties`,
     },
   },
 };
 
-const getMonthlyOrders = (orders: any[], year: number) => {
-  const monthlyOrders = Array(12).fill(0);
+const getMonthlyProperties = (properties: any[], year: number) => {
+  const monthlyProperties = Array(12).fill(0);
 
-  orders.forEach((order) => {
-    const orderYear = dayjs(order?.created_at).year();
-    if (orderYear === year) {
-      const monthIndex = dayjs(order.created_at).month(); // January is 0, December is 11
-      monthlyOrders[monthIndex] += parseFloat(order.total_amount); // Convert total_amount to a number
+  properties.forEach((property) => {
+    const propertyYear = dayjs(property?.created_at).year();
+    if (propertyYear === year) {
+      const monthIndex = dayjs(property.created_at).month(); // January is 0, December is 11
+      monthlyProperties[monthIndex] += 1; // Increment property count
     }
   });
 
-  return monthlyOrders;
+  return monthlyProperties;
 };
 
-const ChartOne: React.FC<{ orders: any[] }> = ({ orders }) => {
+const PropertiesChart: React.FC<{ properties: any[] }> = ({ properties }) => {
   const currentYear = dayjs().year();
   const [selectedYear, setSelectedYear] = useState<number>(currentYear);
 
@@ -135,12 +135,12 @@ const ChartOne: React.FC<{ orders: any[] }> = ({ orders }) => {
     setSelectedYear(parseInt(e.target.value, 10));
   };
 
-  const monthlyOrders = getMonthlyOrders(orders, selectedYear);
+  const monthlyProperties = getMonthlyProperties(properties, selectedYear);
 
   const series = [
     {
-      name: "Total Sales",
-      data: monthlyOrders,
+      name: "Total Properties",
+      data: monthlyProperties,
     },
   ];
 
@@ -148,13 +148,13 @@ const ChartOne: React.FC<{ orders: any[] }> = ({ orders }) => {
     ...options,
     yaxis: {
       ...options.yaxis,
-      max: Math.max(...monthlyOrders), // Removed +10 to avoid extra space
+      max: Math.max(...monthlyProperties) + 1, // Add some padding for visibility
     },
   };
 
-  // Generate a list of years from the earliest order to the current year
+  // Generate a list of years from the earliest property to the current year
   const years = Array.from(
-    new Set(orders.map((order) => dayjs(order.created_at).year())),
+    new Set(properties.map((property) => dayjs(property.created_at).year())),
   ).sort((a, b) => b - a);
 
   return (
@@ -162,10 +162,10 @@ const ChartOne: React.FC<{ orders: any[] }> = ({ orders }) => {
       <div className="flex flex-col items-start gap-3 sm:flex-row sm:justify-between">
         <div>
           <h3 className="text-lg font-semibold text-black dark:text-white">
-            Sales Overview
+            Properties Overview
           </h3>
           <p className="text-gray-500 dark:text-gray-400 text-sm">
-            Total sales overview for the year
+            Total properties added for the year
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -173,7 +173,7 @@ const ChartOne: React.FC<{ orders: any[] }> = ({ orders }) => {
             <span className="mr-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full border border-primary">
               <span className="block h-2.5 w-2.5 rounded-full bg-primary"></span>
             </span>
-            <p className="font-semibold text-primary">Total Sales</p>
+            <p className="font-semibold text-primary">Total Properties</p>
           </div>
           <select
             value={selectedYear}
@@ -190,7 +190,7 @@ const ChartOne: React.FC<{ orders: any[] }> = ({ orders }) => {
       </div>
 
       <div>
-        <div id="chartOne" className="-ml-5">
+        <div id="chartProperties" className="-ml-5">
           <ReactApexChart
             options={chartOptions}
             series={series}
@@ -204,4 +204,4 @@ const ChartOne: React.FC<{ orders: any[] }> = ({ orders }) => {
   );
 };
 
-export default ChartOne;
+export default PropertiesChart;

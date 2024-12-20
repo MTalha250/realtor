@@ -1,17 +1,11 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
-import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-
-export const metadata: Metadata = {
-  title: "Dashboard | Realtor Admin",
-  description: "Realtor Admin Dashboard",
-};
+import Dashboard from "@/components/Dashboard";
 
 export default function Home() {
   return (
     <>
       <DefaultLayout>
-        <ECommerce />
+        <Dashboard />
       </DefaultLayout>
     </>
   );

@@ -7,8 +7,13 @@ const options: ApexOptions = {
     fontFamily: "Satoshi, sans-serif",
     type: "donut",
   },
-  colors: ["#3C50E0", "#6577F3", "#8FD0EF"],
-  labels: ["Products", "Blogs", "Users"],
+  colors: ["#6F8D38", "#A1C96A", "#F4A261", "#E76F51"], // Greenish and Orangish colors
+  labels: [
+    "New Properties",
+    "Used Properties",
+    "Rental Properties",
+    "Sale Properties",
+  ],
   legend: {
     show: false,
     position: "bottom",
@@ -49,49 +54,58 @@ const options: ApexOptions = {
   ],
 };
 
-const ChartThree: React.FC<{
-  products: number;
-  blogs: number;
-  users: number;
-}> = ({ products, blogs, users }) => {
-  const total = products + blogs + users;
+const PropertiesDonutChart: React.FC<{
+  newProperties: number;
+  usedProperties: number;
+  rentalProperties: number;
+  saleProperties: number;
+}> = ({ newProperties, usedProperties, rentalProperties, saleProperties }) => {
+  const total =
+    newProperties + usedProperties + rentalProperties + saleProperties;
   const series = [
-    Number((products / total) * 100),
-    Number((blogs / total) * 100),
-    Number((users / total) * 100),
+    Number((newProperties / total) * 100),
+    Number((usedProperties / total) * 100),
+    Number((rentalProperties / total) * 100),
+    Number((saleProperties / total) * 100),
   ];
 
   const legendData = [
     {
-      label: "Products",
-      value: products,
-      percentage: ((products / total) * 100).toFixed(2),
-      color: "#3C50E0",
+      label: "New",
+      value: newProperties,
+      percentage: ((newProperties / total) * 100).toFixed(),
+      color: "#6F8D38",
     },
     {
-      label: "Blogs",
-      value: blogs,
-      percentage: ((blogs / total) * 100).toFixed(2),
-      color: "#6577F3",
+      label: "Used",
+      value: usedProperties,
+      percentage: ((usedProperties / total) * 100).toFixed(),
+      color: "#A1C96A",
     },
     {
-      label: "Users",
-      value: users,
-      percentage: ((users / total) * 100).toFixed(2),
-      color: "#8FD0EF",
+      label: "Rentals",
+      value: rentalProperties,
+      percentage: ((rentalProperties / total) * 100).toFixed(),
+      color: "#F4A261",
+    },
+    {
+      label: "Sales",
+      value: saleProperties,
+      percentage: ((saleProperties / total) * 100).toFixed(),
+      color: "#E76F51",
     },
   ];
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       <h5 className="mb-2 text-xl font-semibold text-black dark:text-white">
-        Site Statistics
+        Properties Overview
       </h5>
       <p className="text-gray-500 dark:text-gray-400 text-sm">
-        Breakdown of the site statistics
+        Distribution of property types
       </p>
       <div>
-        <div id="chartThree" className="mx-auto flex justify-center">
+        <div id="propertiesDonutChart" className="mx-auto flex justify-center">
           <ReactApexChart options={options} series={series} type="donut" />
         </div>
       </div>
@@ -107,6 +121,9 @@ const ChartThree: React.FC<{
               <p className="text-sm font-medium text-black dark:text-white">
                 {item.value} {item.label}
               </p>
+              <p className="text-gray-500 dark:text-gray-400 ml-auto text-sm">
+                {item.percentage}%
+              </p>
             </div>
           </div>
         ))}
@@ -115,4 +132,4 @@ const ChartThree: React.FC<{
   );
 };
 
-export default ChartThree;
+export default PropertiesDonutChart;

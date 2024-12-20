@@ -60,6 +60,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <title>Admin Panel | Realtor</title>
+      </head>
       <body suppressHydrationWarning={true}>
         {user ? (
           <div className="dark:bg-boxdark-2 dark:text-bodydark">
