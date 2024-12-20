@@ -5,7 +5,7 @@ import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { FaCartShopping } from "react-icons/fa6";
+import { FaHouseChimney } from "react-icons/fa6";
 import { RiAdminFill } from "react-icons/ri";
 import { IoSettingsSharp } from "react-icons/io5";
 import useAuthStore from "@/store/authStore";
@@ -31,15 +31,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           route: "/",
         },
         {
-          icon: <RiAdminFill className="fill-current" size={20} />,
+          icon: <FaHouseChimney className="fill-current" size={20} />,
           label: "Properties",
           route: "/properties",
         },
-        {
-          icon: <RiAdminFill className="fill-current" size={20} />,
-          label: "Blogs",
-          route: "/blogs",
-        },
+        // {
+        //   icon: <RiAdminFill className="fill-current" size={20} />,
+        //   label: "Blogs",
+        //   route: "/blogs",
+        // },
         {
           icon: <RiAdminFill className="fill-current" size={20} />,
           label: "Admins",

@@ -24,13 +24,12 @@ export const loginBack = async () => {
   }
 
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/admin/admin`,
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/by-token`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     },
   );
-
-  return { user: data, token };
+  return { admin: data.admin, token };
 };

@@ -1,8 +1,9 @@
 import Link from "next/link";
 interface BreadcrumbProps {
+  prev?: string;
   pageName: string;
 }
-const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
+const Breadcrumb = ({ pageName, prev }: BreadcrumbProps) => {
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <h2 className="text-title-md2 font-semibold text-black dark:text-white">
@@ -16,6 +17,13 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
               Dashboard /
             </Link>
           </li>
+          {prev && (
+            <li>
+              <Link className="font-medium" href={`/${prev.toLowerCase()}`}>
+                {prev} /
+              </Link>
+            </li>
+          )}
           <li className="font-medium text-primary">{pageName}</li>
         </ol>
       </nav>

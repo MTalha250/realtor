@@ -42,7 +42,7 @@ const Admins = () => {
   const [editMode, setEditMode] = useState(false);
   const [id, setId] = useState<number | null>();
   const [password, setPassword] = useState("");
-  const { user, token } = useAuthStore();
+  const { token } = useAuthStore();
 
   const initialFormData: Admin = {
     id: null,
@@ -67,7 +67,7 @@ const Admins = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setAdmins(res.data);
+      setAdmins(res.data.admins);
     } catch (error) {
       console.error("Failed to fetch admins:", error);
     } finally {
@@ -121,7 +121,7 @@ const Admins = () => {
       } else {
         // Add new admin
         await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin`,
+          `${process.env.NEXT_PUBLIC_API_URL}/admin/register`,
           {
             ...formData,
             password,
@@ -138,7 +138,10 @@ const Admins = () => {
       closeModal();
       getAdmins();
     } catch (error) {
-      console.error("Failed to save admin:", error);
+      if (error && (error as any).response?.status === 422) {
+        toast.error("Email already exists");
+        return;
+      }
       toast.error("Failed to save admin");
     } finally {
       setLoading(false);
@@ -452,125 +455,6 @@ const Admins = () => {
             )}
           </div>
         </div>
-
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel={editMode ? "Edit Admin" : "Add Admin"}
-        >
-          <div className="flex items-center justify-between px-4 py-4 md:px-6 xl:px-7.5">
-            <h4 className="text-xl font-semibold text-white dark:text-white">
-              {editMode ? "Edit Admin" : "Add Admin"}
-            </h4>
-            <button
-              onClick={closeModal}
-              className="dark:text-white dark:hover:text-white"
-            >
-              <IoMdClose size={18} />
-            </button>
-          </div>
-          <form className="px-4 py-4 md:px-6 xl:px-7.5">
-            <div className="space-y-4">
-              <div>
-                <label
-                  htmlFor="profile_pic"
-                  className="block text-sm font-medium text-white dark:text-white"
-                >
-                  Profile Picture
-                </label>
-                <PhotosUploader
-                  addedPhotos={
-                    formData.profile_image ? [formData.profile_image] : []
-                  }
-                  maxPhotos={1}
-                  onChange={(photos: any) =>
-                    setFormData({ ...formData, profile_image: photos[0] })
-                  }
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-white dark:text-white"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.username}
-                  onChange={(e) =>
-                    setFormData({ ...formData, username: e.target.value })
-                  }
-                  className="w-full rounded border border-stroke bg-gray px-4.5 py-2 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-white dark:text-white"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="w-full rounded border border-stroke bg-gray px-4.5 py-2 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-white dark:text-white"
-                >
-                  Phone
-                </label>
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  className="w-full rounded border border-stroke bg-gray px-4.5 py-2 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                />
-              </div>
-              {!editMode && (
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-white dark:text-white"
-                  >
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full rounded border border-stroke bg-gray px-4.5 py-2 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  />
-                </div>
-              )}
-            </div>
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="mt-6 w-full rounded-md bg-primary px-4 py-2 text-center font-medium text-white hover:bg-opacity-90"
-            >
-              {editMode ? "Update Admin" : "Add Admin"}
-            </button>
-          </form>
-        </Modal>
       </div>
     </DefaultLayout>
   );

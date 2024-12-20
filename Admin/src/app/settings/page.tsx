@@ -60,10 +60,11 @@ const Settings = () => {
     }
     try {
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/${user?.id}/update-password`,
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/update-password`,
         {
-          oldPassword: password,
-          newPassword: newPassword,
+          old_password: password,
+          new_password: newPassword,
+          new_password_confirmation: confirmPassword,
         },
         {
           headers: {
@@ -194,6 +195,44 @@ const Settings = () => {
                         placeholder="davidjohn45@gmail.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-5.5">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="phone"
+                    >
+                      Phone
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-4.5 top-4">
+                        <svg
+                          className="fill-current"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g opacity="0.8">
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M15.625 14.1667C14.5833 14.1667 13.5833 13.95 12.675 13.5417C12.4083 13.4167 12.0917 13.4917 11.8833 13.7L10.5 15.0833C7.25833 13.3667 5.00833 11.1167 3.29167 7.875L4.675 6.49167C4.88333 6.28333 4.95833 5.96667 4.83333 5.7C4.425 4.79167 4.20833 3.79167 4.20833 2.75C4.20833 2.20833 3.79167 1.79167 3.25 1.79167H1.45833C0.916667 1.79167 0.5 2.20833 0.5 2.75C0.5 6.68333 2.13333 10.2417 4.80833 12.9167C7.48333 15.5917 11.0417 17.225 14.975 17.225C15.5167 17.225 15.9333 16.8083 15.9333 16.2667V14.475C15.9333 13.9333 15.5167 13.5167 14.975 13.5167H15.625Z"
+                              fill=""
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                      <input
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        type="text"
+                        name="phone"
+                        id="phone"
+                        placeholder="08012345678"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                       />
                     </div>
                   </div>

@@ -57,11 +57,11 @@ const Header = (props: {
               </span>
             </button>
           </div>
-          <img src={logo.src} alt="logo" className="w-40 dark:hidden" />
+          <img src={logo.src} alt="logo" className="w-28 dark:hidden" />
           <img
             src={logoWhite.src}
             alt="logo"
-            className="hidden w-40 dark:block"
+            className="hidden w-28 dark:block"
           />
         </div>
         <div className="flex items-center gap-3">
@@ -71,17 +71,14 @@ const Header = (props: {
           <div className="flex items-center gap-4">
             <span className="hidden text-right lg:block">
               <span className="block text-sm font-medium text-black dark:text-white">
-                {user?.name}
+                {user?.username}
               </span>
-              <span className="block text-xs">
-                {user?.role &&
-                  user?.role[0].toUpperCase() + user?.role.slice(1)}
-              </span>
+              <span className="block text-xs">Administrator</span>
             </span>
 
             <span className="h-12 w-12">
               <img
-                src={user?.profileImage}
+                src={user?.profile_image}
                 alt="User"
                 className="h-full w-full rounded-full object-cover"
               />

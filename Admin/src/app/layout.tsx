@@ -9,6 +9,8 @@ import toast, { Toaster } from "react-hot-toast";
 import useAuthStore from "@/store/authStore";
 import Login from "@/components/Login";
 import { loginBack } from "@/hooks/auth";
+import { useGoogleMapsStore } from "@/store/GoogleMapsStore";
+import { useGoogleMapsApi } from "@/hooks/useGoogleMapsApi";
 
 export default function RootLayout({
   children,
@@ -31,7 +33,7 @@ export default function RootLayout({
         localStorage.removeItem("token");
         return;
       }
-      setUser(res?.user);
+      setUser(res?.admin);
 
       if (res?.token) {
         setToken(res.token);
@@ -42,6 +44,15 @@ export default function RootLayout({
       localStorage.removeItem("token");
     }
   };
+
+  const setIsLoaded = useGoogleMapsStore((state) => state.setIsLoaded);
+  const { isLoaded } = useGoogleMapsApi(
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+  );
+
+  useEffect(() => {
+    setIsLoaded(isLoaded);
+  }, [isLoaded, setIsLoaded]);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
