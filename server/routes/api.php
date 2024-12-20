@@ -18,7 +18,7 @@ Route::patch('/properties/{id}/increment-likes', [PropertyController::class, 'in
 Route::put('/admin/update-password', [AdminController::class, 'updatePassword']);
 
 Route::post('/increment-site-views', [SiteViewrController::class, 'incrementSiteViews']);
-
+Route::get('/dashboard', [AdminController::class, 'dashboard']);
 Route::prefix('admin')->group(function () {
     Route::post('/register', [AdminController::class, 'register']);
     Route::post('/login', [AdminController::class, 'login']);
