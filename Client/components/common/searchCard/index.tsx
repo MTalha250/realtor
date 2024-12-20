@@ -128,7 +128,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ onSearchComplete }) => {
     try {
       if (autocompleteRef.current) {
         const place = autocompleteRef.current.getPlace();
-        if (!place.geometry) {
+        if (!place.geometry || !place.geometry.location) {
           toast.error("Error selecting place. Please try again.");
           return;
         }

@@ -22,6 +22,9 @@ const Main = ({ property }: Props) => {
           {property.area} sqft
         </p>
         <p className="mb-5">{property.description}</p>
+        <p className="text-2xl sm:text-3xl lg:text-4xl font-slab font-light mb-5">
+          ${property.price.toLocaleString()} / {property.priceType}
+        </p>
         <p className="mb-5 text-xl font-light">
           Last Updated:{" "}
           {new Date(property.updated_at).toLocaleDateString() ===
