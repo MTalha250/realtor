@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SiteViewrController;
 
 
 Route::get('/properties', [PropertyController::class, 'index']);
@@ -16,6 +17,7 @@ Route::patch('/properties/{id}/increment-views', [PropertyController::class, 'in
 Route::patch('/properties/{id}/increment-likes', [PropertyController::class, 'incrementLikes']);
 Route::put('/admin/update-password', [AdminController::class, 'updatePassword']);
 
+Route::post('/increment-site-views', [SiteViewrController::class, 'incrementSiteViews']);
 
 Route::prefix('admin')->group(function () {
     Route::post('/register', [AdminController::class, 'register']);

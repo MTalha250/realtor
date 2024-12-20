@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\PropertyImage;
 use App\Models\PropertyLocation;
+use App\Models\SiteViewr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 class PropertyController extends Controller
 {
-    function transformPropertyResponse($property) {
+    function transformPropertyResponse($property)
+    {
         return [
             "id" => $property['id'],
             "title" => $property['title'],
@@ -54,18 +56,23 @@ class PropertyController extends Controller
             ] : null,
         ];
     }
-    
+
     public function index()
     {
         $properties = Property::with(['images', 'location'])->get();
-    
+
         $properties = $properties->map(function ($property) {
             return $this->transformPropertyResponse($property);
         });
-    
-        return response()->json($properties);
+        $siteViews = SiteViewr::first()->SiteViews ?? 0;
+
+
+        return response()->json([
+            'siteViews' => $siteViews,
+            'properties' => $properties,
+        ]);
     }
-    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -173,16 +180,16 @@ class PropertyController extends Controller
     public function search(Request $request)
     {
         $query = Property::with(['images', 'location']);
-        
+
         $location = $request->query('location') ? json_decode($request->query('location'), true) : null;
-        $radiusInMiles  = $request->query('radius', 10);
+        $radiusInMiles = $request->query('radius', 10);
 
         $radiusInMeters = $radiusInMiles * 1609.34;
 
         if ($location && isset($location['latitude']) && isset($location['longitude'])) {
             $latitude = $location['latitude'];
             $longitude = $location['longitude'];
-    
+
             $query->whereHas('location', function ($subQuery) use ($latitude, $longitude, $radiusInMeters) {
                 $subQuery->whereRaw("
                     ST_Distance_Sphere(
@@ -191,7 +198,7 @@ class PropertyController extends Controller
                     ) <= ?", [$longitude, $latitude, $radiusInMeters]);
             });
         }
-    
+
         $filters = [
             'views' => 'view',
             'dealType' => 'dealType',
@@ -199,7 +206,7 @@ class PropertyController extends Controller
             'propertyStyle' => 'propertyStyle',
             //'leaseTerm' => 'leaseTerm',
             //'floors' => 'floors',
-           // 'noiseLevel' => 'noiseLevel',
+            // 'noiseLevel' => 'noiseLevel',
             //'laundry' => 'laundry',
             'amenities' => 'amenities',
             'internet' => 'internet',
@@ -211,7 +218,7 @@ class PropertyController extends Controller
         //propertyType filter
         if ($request->has('propertyType')) {
             $propertyTypes = json_decode($request->query('propertyType'), true);
-    
+
             if (is_array($propertyTypes) && count($propertyTypes) > 0) {
                 $query->where(function ($subQuery) use ($propertyTypes) {
                     foreach ($propertyTypes as $type) {
@@ -223,7 +230,7 @@ class PropertyController extends Controller
         //dealType filter
         if ($request->has('dealType')) {
             $dealType = $request->query('dealType');
-        
+
             if (!empty($dealType)) {
                 $query->where('dealType', '=', $dealType);
             }
@@ -231,7 +238,7 @@ class PropertyController extends Controller
         //condition filter 
         if ($request->has('condition')) {
             $condition = $request->query('condition');
-        
+
             if (!empty($condition)) {
                 $query->where('condition', '=', $condition);
             }
@@ -241,7 +248,7 @@ class PropertyController extends Controller
         if ($request->has('beds')) {
             $bedsFilter = json_decode($request->query('beds'), true);
             \Log::info('Beds Filter Input:', ['beds' => $bedsFilter]);
-    
+
             if (is_array($bedsFilter) && count($bedsFilter) > 0) {
                 $query->where(function ($subQuery) use ($bedsFilter) {
                     foreach ($bedsFilter as $bed) {
@@ -264,7 +271,7 @@ class PropertyController extends Controller
         if ($request->has('baths')) {
             $bathsFilter = json_decode($request->query('baths'), true);
             \Log::info('baths Filter Input:', ['baths' => $bathsFilter]);
-    
+
             if (is_array($bathsFilter) && count($bathsFilter) > 0) {
                 $query->where(function ($subQuery) use ($bathsFilter) {
                     foreach ($bathsFilter as $bath) {
@@ -280,91 +287,91 @@ class PropertyController extends Controller
                 });
             }
         }
-    //leaseTerm filter
+        //leaseTerm filter
 
-    if ($request->has('leaseTerm')) {
-        $leaseTerm = json_decode($request->query('leaseTerm'), true);
+        if ($request->has('leaseTerm')) {
+            $leaseTerm = json_decode($request->query('leaseTerm'), true);
 
-        if (is_array($leaseTerm) && count($leaseTerm) > 0) {
-            $query->where(function ($subQuery) use ($leaseTerm) {
-                foreach ($leaseTerm as $lease) {
-                    $subQuery->orWhere('leaseTerm', 'LIKE', '%' . $lease . '%');
-                }
-            });
-        }
-    }
-
-    //floors filter
-
-    if ($request->has('floors')) {
-        $floorsFilter = json_decode($request->query('floors'), true);
-        \Log::info('floors Filter Input:', ['floors' => $floorsFilter]);
-
-        if (is_array($floorsFilter) && count($floorsFilter) > 0) {
-            $query->where(function ($subQuery) use ($floorsFilter) {
-                foreach ($floorsFilter as $floor) {
-                    if (str_ends_with($floor, '+')) {
-                        $floorCount = (int) rtrim($floor, '+');
-                        \Log::info('floors Filter Greater Than or Equal:', ['floorCount' => $floorCount]);
-                        $subQuery->orWhere('floors', '>=', $floorCount);
-                    } elseif (is_numeric($floor)) {
-                        \Log::info('floors Filter Exact Match:', ['floorCount' => $floor]);
-                        $subQuery->orWhere('floors', '=', (int) $floor);
+            if (is_array($leaseTerm) && count($leaseTerm) > 0) {
+                $query->where(function ($subQuery) use ($leaseTerm) {
+                    foreach ($leaseTerm as $lease) {
+                        $subQuery->orWhere('leaseTerm', 'LIKE', '%' . $lease . '%');
                     }
-                }
-            });
+                });
+            }
         }
-    }
 
-    //noise level filter
+        //floors filter
 
-    if ($request->has('noiseLevel')) {
-        $noiseLevel = json_decode($request->query('noiseLevel'), true);
+        if ($request->has('floors')) {
+            $floorsFilter = json_decode($request->query('floors'), true);
+            \Log::info('floors Filter Input:', ['floors' => $floorsFilter]);
 
-        if (is_array($noiseLevel) && count($noiseLevel) > 0) {
-            $query->where(function ($subQuery) use ($noiseLevel) {
-                foreach ($noiseLevel as $type) {
-                    $subQuery->orWhere('noiseLevel', 'LIKE', '%' . $type . '%');
-                }
-            });
+            if (is_array($floorsFilter) && count($floorsFilter) > 0) {
+                $query->where(function ($subQuery) use ($floorsFilter) {
+                    foreach ($floorsFilter as $floor) {
+                        if (str_ends_with($floor, '+')) {
+                            $floorCount = (int) rtrim($floor, '+');
+                            \Log::info('floors Filter Greater Than or Equal:', ['floorCount' => $floorCount]);
+                            $subQuery->orWhere('floors', '>=', $floorCount);
+                        } elseif (is_numeric($floor)) {
+                            \Log::info('floors Filter Exact Match:', ['floorCount' => $floor]);
+                            $subQuery->orWhere('floors', '=', (int) $floor);
+                        }
+                    }
+                });
+            }
         }
-    }
 
+        //noise level filter
 
-    //laundry filter
+        if ($request->has('noiseLevel')) {
+            $noiseLevel = json_decode($request->query('noiseLevel'), true);
 
-    if ($request->has('laundry')) {
-        $laundry = json_decode($request->query('laundry'), true);
-
-        if (is_array($laundry) && count($laundry) > 0) {
-            $query->where(function ($subQuery) use ($laundry) {
-                foreach ($laundry as $type) {
-                    $subQuery->orWhere('laundry', 'LIKE', '%' . $type . '%');
-                }
-            });
+            if (is_array($noiseLevel) && count($noiseLevel) > 0) {
+                $query->where(function ($subQuery) use ($noiseLevel) {
+                    foreach ($noiseLevel as $type) {
+                        $subQuery->orWhere('noiseLevel', 'LIKE', '%' . $type . '%');
+                    }
+                });
+            }
         }
-    }
 
-    //internet filter
 
-    if ($request->has('internet')) {
-        $internet = json_decode($request->query('internet'), true);
+        //laundry filter
 
-        if (is_array($internet) && count($internet) > 0) {
-            $query->where(function ($subQuery) use ($internet) {
-                foreach ($internet as $type) {
-                    $subQuery->orWhere('internet', 'LIKE', '%' . $type . '%');
-                }
-            });
+        if ($request->has('laundry')) {
+            $laundry = json_decode($request->query('laundry'), true);
+
+            if (is_array($laundry) && count($laundry) > 0) {
+                $query->where(function ($subQuery) use ($laundry) {
+                    foreach ($laundry as $type) {
+                        $subQuery->orWhere('laundry', 'LIKE', '%' . $type . '%');
+                    }
+                });
+            }
         }
-    }
 
-    //General filters
-                    
+        //internet filter
+
+        if ($request->has('internet')) {
+            $internet = json_decode($request->query('internet'), true);
+
+            if (is_array($internet) && count($internet) > 0) {
+                $query->where(function ($subQuery) use ($internet) {
+                    foreach ($internet as $type) {
+                        $subQuery->orWhere('internet', 'LIKE', '%' . $type . '%');
+                    }
+                });
+            }
+        }
+
+        //General filters
+
         foreach ($filters as $param => $column) {
             if ($request->has($param)) {
                 $values = json_decode($request->query($param), true);
-    
+
                 if (is_array($values) && count($values) > 0) {
                     $query->where(function ($subQuery) use ($column, $values) {
                         foreach ($values as $value) {
@@ -376,20 +383,20 @@ class PropertyController extends Controller
         }
 
 
-    
+
         $minPrice = $request->query('minPrice', 0);
         $maxPrice = $request->query('maxPrice', PHP_INT_MAX);
         \Log::info('Price Filter Input:', ['minPrice' => $minPrice, 'maxPrice' => $maxPrice]);
-        $query->whereBetween('price', [(float)$minPrice, (float)$maxPrice]);
-    
+        $query->whereBetween('price', [(float) $minPrice, (float) $maxPrice]);
+
         $fields = $request->query('fields', '*');
         $fieldsArray = $fields === '*' ? ['*'] : explode(',', $fields);
         $query->select($fieldsArray);
-    
+
         \Log::info('Constructed Query:', [$query->toSql(), $query->getBindings()]);
-    
+
         $properties = $query->get();
-    
+
         return response()->json([
             'data' => $properties->map(function ($property) {
                 return $this->transformPropertyResponse($property);
@@ -398,19 +405,19 @@ class PropertyController extends Controller
     }
 
     public function incrementViews($id)
-{
-    $property = Property::findOrFail($id);
-    $property->increment('views');
-    
-    return response()->json(['message' => 'Views incremented successfully.', 'views' => $property->views]);
-}
+    {
+        $property = Property::findOrFail($id);
+        $property->increment('views');
 
-public function incrementLikes($id)
-{
-    $property = Property::findOrFail($id);
-    $property->increment('likes');
-    
-    return response()->json(['message' => 'Likes incremented successfully.', 'likes' => $property->likes]);
-}
+        return response()->json(['message' => 'Views incremented successfully.', 'views' => $property->views]);
+    }
+
+    public function incrementLikes($id)
+    {
+        $property = Property::findOrFail($id);
+        $property->increment('likes');
+
+        return response()->json(['message' => 'Likes incremented successfully.', 'likes' => $property->likes]);
+    }
 
 }
